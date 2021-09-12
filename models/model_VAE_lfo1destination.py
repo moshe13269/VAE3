@@ -42,6 +42,7 @@ class VAE_lfo1destination(nn.Module):
 
         self.conv14 = nn.Conv2d(256, 512, 3, padding=1, stride=2)
         self.conv15 = nn.Conv2d(512, 512, 4)
+        self.bnm15 = nn.BatchNorm2d(num_features=512, momentum=0.1)
         self.fc1 = nn.Linear(512, 2)
 
         # decoder
@@ -107,7 +108,8 @@ class VAE_lfo1destination(nn.Module):
 
         x = self.relu(self.conv14(x))
         x = self.relu(self.conv15(x))
-        out1 = self.fc1(x.view(x.shape[0], -1))
+        x = self.bnm15(x)
+        out1 = self.fc1(torch.flatten(x, 1))#self.fc1(x.view(x.shape[0], -1))
 
         x = self.lrelu(self.fc2(out1))
         x = x.unsqueeze(2).unsqueeze(3)

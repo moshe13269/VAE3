@@ -45,7 +45,7 @@ class Dataset(Dataset):
         f, t, Zxx = signal.stft(x, fs, nperseg=128, nfft=511, window='hamming')
         # f, t, Zxx = signal.stft(x, fs, nperseg=64, nfft=1023, window='hamming')
         # Zxx = np.log(np.abs(Zxx) + 10 ** -10)
-        Zxx = librosa.amplitude_to_db(np.abs(Zxx),ref=np.max)
+        Zxx = librosa.amplitude_to_db(np.abs(Zxx),  amin=1e-05) #ref=np.max,
         # Zxx = normalize(Zxx, axis=0, norm='l2')
         Zxx = torch.tensor(Zxx[:, :256])
         # Zxx = ((Zxx - Zxx.mean()) / Zxx.std())
@@ -66,16 +66,16 @@ class Dataset(Dataset):
 
 
 
-# if __name__ == '__main__':
-#     from torch.utils.data import DataLoader
-#     dataset = Dataset("/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/sounds_constADSR_res0/",
-#                           "/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/20210713_data_150k_constADSR_res0.csv")
-#     data_loader = DataLoader(dataset, batch_size=1, shuffle=True)
-#     c = 0
-#     cur_max = 0
-#     arr_max = []
-#     for i in range(len(data_loader)):
-#
-#         a=next(iter(data_loader))
-#         arr_max.append(a[0].max().item())
-#         cur_max = max(cur_max,a[0].max().item())
+if __name__ == '__main__':
+    from torch.utils.data import DataLoader
+    dataset = Dataset("/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/sounds_constADSR_res0/",
+                          "/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/20210713_data_150k_constADSR_res0.csv")
+    data_loader = DataLoader(dataset, batch_size=1, shuffle=True)
+    c = 0
+    cur_max = 0
+    arr_max = []
+    for i in range(len(data_loader)):
+
+        a=next(iter(data_loader))
+        arr_max.append(a[0].max().item())
+        cur_max = max(cur_max,a[0].max().item())

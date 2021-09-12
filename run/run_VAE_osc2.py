@@ -5,26 +5,27 @@ import torch.optim as optim
 from models.model_VAE_osc2 import VAE_osc2
 from utils.dataloader import Dataset
 import time
+import torch.nn.functional as F
 
 
 def main():
     torch.cuda.empty_cache()
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/process_state_VAE_KL.txt", "a")
-    device = torch.device('cuda:2')
+    device = torch.device('cuda:1')
     model = VAE_osc2().to(device)
-    model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
+    model_optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     model.train()
 
     mse_criterion = nn.MSELoss().to(device)
     ce_criterion = nn.CrossEntropyLoss().to(device)
     # criterion_out = nn.KLDivLoss(reduction='batchmean').to(device)
-    n_epochs = 12
+    n_epochs = 30
     loss_arr_mid = []
     loss_arr_out = []
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 150
+    batch_size = 200
 
     for epoch in range(n_epochs):
         dataset = Dataset(
@@ -51,7 +52,8 @@ def main():
             re_spec, vector = model(spec)
 
             c1 += 1
-            loss_m = ce_criterion(vector[:, :4], label[:, :1].squeeze().long())
+            # print( label[:, :1].squeeze().long())
+            loss_m = F.cross_entropy(vector, label[:, :1].squeeze().long())# ce_criterion(vector[:, :], label[:, :1].squeeze().long())
             loss_o = mse_criterion(spec, re_spec)
             loss = loss_o*0.2 + loss_m*0.8
 
@@ -88,12 +90,12 @@ def main():
         np.save(outfile_epoch, np.asarray(loss_arr_out))
 
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_arr_mid[:len(loss_arr_out) - 2]) >= loss_arr_mid[len(loss_arr_out) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")

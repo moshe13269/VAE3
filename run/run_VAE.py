@@ -91,12 +91,12 @@ def main():
         np.save(outfile_epoch, np.asarray(loss_arr_out))
 
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/modelVAE_KL2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/modelVAE_KL2.pth"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_arr_mid[:len(loss_arr_out) - 2]) >= loss_arr_mid[len(loss_arr_out) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/modelVAE_KL2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/modelVAE_KL2.pth"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
