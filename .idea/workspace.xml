@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/run_Encoder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/run_VAE.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/dataloader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/inference_stats.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/plot_loss.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/draft.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/model_VAE_lfo1destination.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/model_VAE_lfo1waveform.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/model_VAE_osc2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/run_VAE_lfo1destination.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/run_VAE_lfo1waveform.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/run_VAE_osc2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/VAE2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/VAE2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +24,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -35,9 +39,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../VAE" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -49,6 +55,18 @@
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
     </task>
+    <task id="LOCAL-00001" summary="ver0">
+      <created>1631470675820</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631470675820</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ver0" />
+    <option name="LAST_COMMIT_MESSAGE" value="ver0" />
   </component>
 </project>
