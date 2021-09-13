@@ -25,13 +25,13 @@ def main():
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 200
+    batch_size = 10
 
     for epoch in range(n_epochs):
         dataset = Dataset(
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv")
-        data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
+        data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1,
                                                   pin_memory=True, drop_last=True)
         print(len(data_loader.dataset))
 
@@ -46,6 +46,8 @@ def main():
                 print("sum samples = {} ".format(batch_num * batch_size))
             spec = data[0].float()
             label = data[1]
+            print(label)
+            print(label[:, :1])
             spec = spec.to(device)
             label = label.to(device)
             model_optimizer.zero_grad()
