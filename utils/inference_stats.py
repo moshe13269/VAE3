@@ -46,17 +46,18 @@ class Results:
 
         with torch.no_grad():
             c = 1
+            counter =0
             d=e=f=0
             d1 = e1 = f1 = 0
+            to_stop = 200
             for batch_num, data in enumerate(data_loader):
-                if batch_num % 20 == 0 and batch_num > 0:
+                if batch_num % to_stop == 0 and batch_num > 0:
                     print('sample num: {}'.format(batch_num))
                     break
                 spec = data[0].float().to(self.device)
                 label = data[1]
                 if self.vae:
                     _, vector = self.VAE(spec)
-                    print(vector)
                 # else:
                 #     vector = self.Encoder(spec)
                 #     print(vector)
@@ -64,28 +65,17 @@ class Results:
                 vector = vector.squeeze()
                 # vector = convert_label4output(vector)
                 # vector = np.around(vector, decimals=2)
-                # label = np.around(np.asarray(label), decimals=2)
-                # if vector[0]!=0.0:
-                #     d+=1
-                # if label[0]!=0.25:
-                #     d1+=1
-                # if vector[1]!=0.25:
-                #     e+=1
-                # if label[1]!=0.25:
-                #     e1+=1
-                # if vector[2]!=0.43:
-                #     f+=1
-                # if label[2]!=0.43:
-                #     f1+=1
-                vector = F.softmax(torch.from_numpy(vector), dim=0).argmax().item()/4
-                print(vector)
-                print(label[0])
-                print('\n')
+                # print(vector)
+                vector = F.softmax(torch.from_numpy(vector)).argmax().item()/4
+
+                # print(label[0])
+                # print('\n')
+                if vector == label[0].item():
+                    counter += 1
                 predicted_arr[c] = vector
                 predicted_arr[c+1] = label[0]
                 c += 2
-        print(d,e,f)
-        print(d1, e1, f1)
+        print('acc: %{}'.format(counter/to_stop))
         return predicted_arr
 
 
@@ -94,8 +84,8 @@ def main():
                     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv"]
 
     path2save = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2"
-    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
-    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
+    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
+    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
 
     inference_model = Results(path2save, path2encoder, path2vae, path2dataset[0], path2dataset[1])
     inference_model.load_weight_model()

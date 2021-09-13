@@ -38,9 +38,8 @@ class Dataset(Dataset):
         return len(self.path_list)
 
     def __getitem__(self, index):
-
         try:
-            fs, x = wavfile.read(join(self.path2data, str(index), '.wav')) # self.path_list[index])
+            fs, x = wavfile.read(join(self.path2data, str(index)+'.wav')) # self.path_list[index])
         except UnboundLocalError:
             print(self.path_list[index])
         f, t, Zxx = signal.stft(x, fs, nperseg=128, nfft=511, window='hamming')

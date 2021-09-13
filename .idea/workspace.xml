@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/run_VAE_osc2.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_osc2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dataloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/inference_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/inference_stats.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.run_VAE_osc2">
+  <component name="RunManager" selected="Python.inference_stats">
     <configuration name="dataloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,11 +167,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.inference_stats" />
+        <item itemvalue="Python.run_VAE_lfo1destination" />
         <item itemvalue="Python.run_VAE_osc2" />
         <item itemvalue="Python.dataloader" />
         <item itemvalue="Python.run_VAE_lfo1waveform" />
-        <item itemvalue="Python.run_VAE_lfo1destination" />
-        <item itemvalue="Python.inference_stats" />
       </list>
     </recent_temporary>
   </component>
@@ -218,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631507256837</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ver0">
+      <created>1631546891633</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1631546891634</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -235,7 +243,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/dataloader.py</url>
-          <line>69</line>
+          <line>68</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
