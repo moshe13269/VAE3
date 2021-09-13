@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/run_VAE_lfo1destination.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_lfo1destination.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/run_VAE_lfo1waveform.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_lfo1waveform.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/run_VAE_osc2.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_osc2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dataloader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/inference_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/inference_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/plot_loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plot_loss.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,18 +163,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.inference_stats" />
+      <item itemvalue="Python.dataloader" />
+      <item itemvalue="Python.run_VAE_osc2" />
       <item itemvalue="Python.run_VAE_lfo1destination" />
       <item itemvalue="Python.run_VAE_lfo1waveform" />
-      <item itemvalue="Python.run_VAE_osc2" />
-      <item itemvalue="Python.dataloader" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.run_VAE_lfo1waveform" />
         <item itemvalue="Python.run_VAE_lfo1destination" />
-        <item itemvalue="Python.inference_stats" />
         <item itemvalue="Python.run_VAE_osc2" />
         <item itemvalue="Python.dataloader" />
+        <item itemvalue="Python.inference_stats" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631548635175</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="ver0">
+      <created>1631548950705</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1631548950705</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -249,14 +259,24 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/utils/dataloader.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run/run_VAE_osc2.py</url>
           <line>50</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/plot_loss.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/dataloader.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

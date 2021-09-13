@@ -40,7 +40,7 @@ class Results:
         print('csv file had been saved')
 
     def predict_param(self):
-        dataset = Dataset(self.path2dataset, self.path2csv, train=0)
+        dataset = Dataset(self.path2dataset, self.path2csv, train=1)
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
         predicted_arr = np.empty([len(data_loader.dataset), 1], dtype=float)
 
@@ -49,7 +49,7 @@ class Results:
             counter =0
             d=e=f=0
             d1 = e1 = f1 = 0
-            to_stop = 200
+            to_stop = 1000
             for batch_num, data in enumerate(data_loader):
                 if batch_num % to_stop == 0 and batch_num > 0:
                     print('sample num: {}'.format(batch_num))
@@ -65,13 +65,16 @@ class Results:
                 vector = vector.squeeze()
                 # vector = convert_label4output(vector)
                 # vector = np.around(vector, decimals=2)
-                vector = F.softmax(torch.from_numpy(vector)).argmax().item()/4
-                if vector == label[0].item():
+                vector = F.softmax(torch.from_numpy(vector)).argmax().item()
+                if vector == int(label[0][0].item()):
                     counter += 1
+                # print(label[0][2].item(), vector)
+                if int(label[0][2].item()) != 0:
+                    d += 1
                 predicted_arr[c] = vector
-                predicted_arr[c+1] = label[0]
+                predicted_arr[c+1] = label[0][0]
                 c += 2
-        print('acc: %{}'.format(counter/to_stop))
+        print('acc: %{}, d(0) %{}'.format(counter/to_stop, d/to_stop))
         return predicted_arr
 
 

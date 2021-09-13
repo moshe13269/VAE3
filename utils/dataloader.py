@@ -42,7 +42,7 @@ class Dataset(Dataset):
             fs, x = wavfile.read(join(self.path2data, str(index)+'.wav')) # self.path_list[index])
         except UnboundLocalError:
             print(self.path_list[index])
-        f, t, Zxx = signal.stft(x, fs, nperseg=128, nfft=511, window='hamming')
+        f, t, Zxx = signal.stft(x*100, fs, nperseg=128, nfft=511, window='hamming')
         # f, t, Zxx = signal.stft(x, fs, nperseg=64, nfft=1023, window='hamming')
         Zxx = np.log(np.abs(Zxx) + 1)
         Zxx = torch.tensor(Zxx[:, :256])
@@ -54,6 +54,7 @@ class Dataset(Dataset):
             label = convert_label4input(label)
         return Zxx, label
 
+
 # if __name__ == '__main__':
 #     from torch.utils.data import DataLoader
 #     dataset = Dataset("/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/sounds_constADSR_res0/",
@@ -62,9 +63,7 @@ class Dataset(Dataset):
 #     c = 0
 #     cur_max = 0
 #     arr_max = []
-#     for i in range(len(data_loader)):
-#
-#         a=next(iter(data_loader))
-#         print(a[1])
-#         arr_max.append(a[0].max().item())
-#         cur_max = max(cur_max,a[0].max().item())
+#     # for i in range(len(data_loader)):
+#     for batch_num, data in enumerate(data_loader):
+#         print(data[1])
+#         plt.imshow(data[0].squeeze())
