@@ -25,7 +25,7 @@ def main():
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 150
+    batch_size = 200
 
     for epoch in range(n_epochs):
         dataset = Dataset(
@@ -57,7 +57,7 @@ def main():
             # print( label[:, :1].squeeze().long())
             loss_m = F.cross_entropy(vector, label[:, :1].squeeze().long())# ce_criterion(vector[:, :], label[:, :1].squeeze().long())
             loss_o = mse_criterion(spec, re_spec)
-            loss = loss_o*0.2 + loss_m*0.8
+            loss = loss_o*0.1 + loss_m*0.9
 
             loss.backward()
             model_optimizer.step()

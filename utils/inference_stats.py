@@ -65,11 +65,7 @@ class Results:
                 vector = vector.squeeze()
                 # vector = convert_label4output(vector)
                 # vector = np.around(vector, decimals=2)
-                # print(vector)
                 vector = F.softmax(torch.from_numpy(vector)).argmax().item()/4
-
-                # print(label[0])
-                # print('\n')
                 if vector == label[0].item():
                     counter += 1
                 predicted_arr[c] = vector
