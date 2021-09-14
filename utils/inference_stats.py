@@ -83,8 +83,8 @@ def main():
                     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv"]
 
     path2save = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2"
-    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
-    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pth"
+    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
+    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
 
     inference_model = Results(path2save, path2encoder, path2vae, path2dataset[0], path2dataset[1])
     inference_model.load_weight_model()

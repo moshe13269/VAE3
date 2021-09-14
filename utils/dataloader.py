@@ -24,6 +24,8 @@ class Dataset(Dataset):
     def __init__(self, path2data, path2csv, train=1):
         self.train = train
         self.path2data = path2data
+        self.path2csv = path2csv  # pd.read_csv(path2csv, skipinitialspace=True)
+        self.csv = self.open_csv()
         list_files = next(os.walk(path2data))[2]
         if self.train:
             self.path_list = [join(path2data, file) for file in list_files \
@@ -32,24 +34,33 @@ class Dataset(Dataset):
             self.path_list = [join(path2data, file) for file in list_files
                               if int(file.replace('.wav', '')) % 7 == 0]
 
-        self.csv_df = pd.read_csv(path2csv, skipinitialspace=True)
+    def open_csv(self):
+        file = open(self.path2csv)
+        csv = pd.read_csv(file)
+        csv = csv.to_numpy()
+        return csv
 
     def __len__(self):
         return len(self.path_list)
 
     def __getitem__(self, index):
         try:
-            fs, x = wavfile.read(join(self.path2data, str(index)+'.wav')) # self.path_list[index])
+            # print(join(self.path2data, str(index) + '.wav'))
+            fs, x = wavfile.read(join(self.path2data, str(index) + '.wav'))  # self.path_list[index])
         except UnboundLocalError:
             print(self.path_list[index])
-        f, t, Zxx = signal.stft(x*100, fs, nperseg=128, nfft=511, window='hamming')
+        f, t, Zxx = signal.stft(x * 100, fs, nperseg=128, nfft=511, window='hamming')
         # f, t, Zxx = signal.stft(x, fs, nperseg=64, nfft=1023, window='hamming')
         Zxx = np.log(np.abs(Zxx) + 1)
         Zxx = torch.tensor(Zxx[:, :256])
+        z_min = Zxx.min()
+        Zxx = (((Zxx - z_min) / (Zxx.max() - z_min)) * 2) - 1
         Zxx = Zxx.unsqueeze(0)
         # Zxx = librosa.amplitude_to_db(Zxx,  amin=1e-05) #ref=np.max,
         # Zxx = ((Zxx - Zxx.mean()) / Zxx.std())
-        label = list(self.csv_df.loc[index])[1:]
+        label = self.csv[index:index+1, 1:]  # list(self.csv_df.loc[index])[1:]
+        label = label.squeeze()
+        # print(label)
         if self.train:
             label = convert_label4input(label)
         return Zxx, label
@@ -57,8 +68,9 @@ class Dataset(Dataset):
 
 # if __name__ == '__main__':
 #     from torch.utils.data import DataLoader
-#     dataset = Dataset("/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/sounds_constADSR_res0/",
-#                           "/home/moshelaufer/Documents/TalNoise/TAL14.07.2021/20210713_data_150k_constADSR_res0.csv")
+#
+#     dataset = Dataset("/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0",
+#                       "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv")
 #     data_loader = DataLoader(dataset, batch_size=1, shuffle=False)
 #     c = 0
 #     cur_max = 0

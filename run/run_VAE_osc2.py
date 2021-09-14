@@ -100,7 +100,7 @@ def main():
             path = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
-            print("Model had been saved")
+            print("Model had been saved 2")
 
     print("Training is over")
     file.write("Training is over\n")
