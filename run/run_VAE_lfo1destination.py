@@ -13,6 +13,7 @@ def main():
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/process_state_VAE_KL.txt", "a")
     device = torch.device('cuda:3')
     model = VAE_lfo1destination().to(device)
+    model.weight_init()
     model_optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)#optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
 

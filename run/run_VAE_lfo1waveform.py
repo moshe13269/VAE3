@@ -13,6 +13,7 @@ def main():
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/lfo1waveform/process_state_VAE_KL.txt", "a")
     device = torch.device('cuda:2')
     model = VAE_lfo1waveform().to(device)
+    model.weight_init()
     model_optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     model.train()
 
@@ -25,7 +26,7 @@ def main():
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 250
+    batch_size = 150
 
     for epoch in range(n_epochs):
         dataset = Dataset(

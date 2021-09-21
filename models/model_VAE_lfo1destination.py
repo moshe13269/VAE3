@@ -73,6 +73,7 @@ class VAE_lfo1destination(nn.Module):
 
         self.lrelu = nn.LeakyReLU(0.2)
         self.relu = nn.ReLU()
+
     def weight_init(self):
         for m in self._modules:
             normal_init(self._modules[m])
