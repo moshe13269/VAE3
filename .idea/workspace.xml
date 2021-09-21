@@ -55,7 +55,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.run_VAE_lfo1destination">
+  <component name="RunManager" selected="Python.run_VAE_lfo1waveform">
     <configuration name="dataloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,10 +170,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.run_VAE_lfo1destination" />
-        <item itemvalue="Python.inference_stats" />
-        <item itemvalue="Python.run_VAE_osc2" />
         <item itemvalue="Python.run_VAE_lfo1waveform" />
+        <item itemvalue="Python.run_VAE_lfo1destination" />
+        <item itemvalue="Python.run_VAE_osc2" />
+        <item itemvalue="Python.inference_stats" />
         <item itemvalue="Python.dataloader" />
       </list>
     </recent_temporary>

@@ -134,7 +134,7 @@ class VAE_lfo1destination(nn.Module):
         x = self.lrelu(self.bnm3(self.conv32(x + layer1)))
         x = self.lrelu(self.conv33(x))
         x = self.lrelu(self.conv34(x))
-        x = self.lrelu(self.conv35(x))
+        x = torch.tanh(self.conv35(x))
 
         return x, out1
 
