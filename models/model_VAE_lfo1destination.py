@@ -79,70 +79,58 @@ class VAE_lfo1destination(nn.Module):
 
     def forward(self, x):
         x = self.relu(self.conv1(x))
-        x = self.relu(self.conv2(x))
-        x = self.relu(self.conv3(x))
-        x = self.bnm3(x)
+        x = self.relu(self.bnm3(self.conv2(x)))
+        x = self.relu(self.bnm3(self.conv3(x)))
         layer1 = x
 
         x = self.relu(self.conv4(x))
-        x = self.relu(self.conv5(x))
-        x = self.relu(self.conv6(x))
-        x = self.bnm6(x)
+        x = self.relu(self.bnm6(self.conv5(x)))
+        x = self.relu(self.bnm6(self.conv6(x)))
         layer2 = x
 
         x = self.relu(self.conv7(x))
-        x = self.relu(self.conv8(x))
-        x = self.relu(self.conv9(x))
-        x = self.bnm9(x)
+        x = self.relu(self.bnm9(self.conv8(x)))
+        x = self.relu(self.bnm9(self.conv9(x)))
         layer3 = x
 
-        x = self.relu(self.conv10(x))
-        x = self.relu(self.conv11(x))
-        x = self.bnm11(x)
+        x = self.relu(self.bnm11(self.conv10(x)))
+        x = self.relu(self.bnm11(self.conv11(x)))
         layer4 = x
 
-        x = self.relu(self.conv12(x))
-        x = self.relu(self.conv13(x))
-        x = self.bnm13(x)
+        x = self.relu(self.bnm13(self.conv12(x)))
+        x = self.relu(self.bnm13(self.conv13(x)))
         layer5 = x
 
-        x = self.relu(self.conv14(x))
-        x = self.relu(self.conv15(x))
-        x = self.bnm15(x)
+        x = self.relu(self.bnm15(self.conv14(x)))
+        x = self.relu(self.bnm15(self.conv15(x)))
         out1 = self.fc1(torch.flatten(x, 1))#self.fc1(x.view(x.shape[0], -1))
 
         x = self.lrelu(self.fc2(out1))
         x = x.unsqueeze(2).unsqueeze(3)
 
-        x = self.lrelu(self.conv20(x))
-        x = self.bnm21(x)
+        x = self.lrelu(self.bnm21(self.conv20(x)))
         x = self.lrelu(self.conv21(x))
         x = self.lrelu(self.ups1(x))
 
-        x = self.lrelu(self.conv22(x + layer5))
-        x = self.bnm13(x)
+        x = self.lrelu(self.bnm13(self.conv22(x + layer5)))
         x = self.lrelu(self.conv23(x))
         x = self.lrelu(self.ups1(x))
 
-        x = self.lrelu(self.conv24(x + layer4))
-        x = self.bnm11(x)
+        x = self.lrelu(self.bnm11(self.conv24(x + layer4)))
         x = self.lrelu(self.conv25(x))
         x = self.lrelu(self.ups1(x))
 
-        x = self.lrelu(self.conv26(x + layer3))
-        x = self.bnm9(x)
+        x = self.lrelu(self.bnm9(self.conv26(x + layer3)))
         x = self.lrelu(self.conv27(x))
         x = self.lrelu(self.conv28(x))
         x = self.lrelu(self.ups1(x))
 
-        x = self.lrelu(self.conv29(x + layer2))
-        x = self.bnm6(x)
+        x = self.lrelu(self.bnm6(self.conv29(x + layer2)))
         x = self.lrelu(self.conv30(x))
         x = self.lrelu(self.conv31(x))
         x = self.lrelu(self.ups1(x))
 
-        x = self.lrelu(self.conv32(x + layer1))
-        x = self.bnm3(x)
+        x = self.lrelu(self.bnm3(self.conv32(x + layer1)))
         x = self.lrelu(self.conv33(x))
         x = self.lrelu(self.conv34(x))
         x = self.lrelu(self.conv35(x))
