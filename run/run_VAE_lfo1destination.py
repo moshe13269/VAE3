@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from models.model_VAE_lfo1destination import VAE_lfo1destination
+from models.model_VAE_lfo1destination2 import VAE_lfo1destination2
 from utils.dataloader import Dataset
 import time
 import torch.nn.functional as F
@@ -12,7 +12,7 @@ def main():
     torch.cuda.empty_cache()
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/process_state_VAE_KL.txt", "a")
     device = torch.device('cuda:3')
-    model = VAE_lfo1destination().to(device)
+    model = VAE_lfo1destination2().to(device)
     model.weight_init()
     model_optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)#optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
@@ -50,17 +50,18 @@ def main():
             spec = spec.to(device)
             label = label.to(device)
             model_optimizer.zero_grad()
-            re_spec, vector = model(spec)
+            # re_spec, vector = model(spec)
+            vector = model(spec)
 
             c1 += 1
-            loss_m = F.cross_entropy(vector[:, :], label[:, 2:3].squeeze().long())#ce_criterion(vector[:, :], label[:, 2:3].squeeze().long())
-            loss_o = mse_criterion(spec, re_spec)
-            loss = loss_o*0.1 + loss_m*0.9
+            loss_m = F.cross_entropy(vector, label[:, 2:3].squeeze().long())#ce_criterion(vector[:, :], label[:, 2:3].squeeze().long())
+            # loss_o = mse_criterion(spec, re_spec)
+            # loss = loss_o*0.1 + loss_m*0.9
 
-            loss.backward()
+            loss_m.backward()
             model_optimizer.step()
             loss_mid_tot += loss_m.item()
-            loss_out_tot += loss_o.item()
+            # loss_out_tot += loss_o.item()
 
             if batch_num % 100 == 0 and batch_num > 0:
                 print(
