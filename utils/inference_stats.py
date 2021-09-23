@@ -50,6 +50,7 @@ class Results:
             d=e=f=0
             d1 = e1 = f1 = 0
             to_stop = 1000
+            l = [0,0,0,0]
             for batch_num, data in enumerate(data_loader):
                 if batch_num % to_stop == 0 and batch_num > 0:
                     print('sample num: {}'.format(batch_num))
@@ -69,12 +70,14 @@ class Results:
                 if vector == int(label[0][0].item()):
                     counter += 1
                 # print(label[0][2].item(), vector)
+                l[int(label[0][2].item())] += 1
                 if int(label[0][2].item()) != 0:
                     d += 1
                 predicted_arr[c] = vector
                 predicted_arr[c+1] = label[0][0]
                 c += 2
         print('acc: %{}, d(0) %{}'.format(counter/to_stop, d/to_stop))
+        print(l)
         return predicted_arr
 
 

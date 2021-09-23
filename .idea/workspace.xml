@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/utils/tester2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model_VAE_lfo1destination.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_VAE_lfo1destination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model_VAE_lfo1waveform.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_VAE_lfo1waveform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model_VAE_osc2.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_VAE_osc2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/run_VAE_lfo1destination.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_lfo1destination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/run_VAE_lfo1waveform.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_lfo1waveform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/run_VAE_osc2.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_VAE_osc2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/inference_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/inference_stats.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,28 +51,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.run_VAE_lfo1waveform">
-    <configuration name="dataloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="VAE2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/dataloader.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.tester2">
     <configuration name="inference_stats" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,6 +65,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/inference_stats.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot_loss" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VAE2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/plot_loss.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,7 +136,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_VAE_osc2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="tester2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -148,11 +144,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run/run_VAE_osc2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/tester2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,19 +158,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.dataloader" />
-      <item itemvalue="Python.run_VAE_osc2" />
       <item itemvalue="Python.run_VAE_lfo1waveform" />
       <item itemvalue="Python.run_VAE_lfo1destination" />
       <item itemvalue="Python.inference_stats" />
+      <item itemvalue="Python.plot_loss" />
+      <item itemvalue="Python.tester2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tester2" />
+        <item itemvalue="Python.inference_stats" />
+        <item itemvalue="Python.plot_loss" />
         <item itemvalue="Python.run_VAE_lfo1waveform" />
         <item itemvalue="Python.run_VAE_lfo1destination" />
-        <item itemvalue="Python.run_VAE_osc2" />
-        <item itemvalue="Python.inference_stats" />
-        <item itemvalue="Python.dataloader" />
       </list>
     </recent_temporary>
   </component>
@@ -264,7 +260,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632257430077</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="ver0">
+      <created>1632257948792</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1632257948792</updated>
+    </task>
+    <task id="LOCAL-00013" summary="ver0">
+      <created>1632258235615</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1632258235615</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -295,19 +305,19 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
-          <line>59</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/tester.py</url>
           <line>6</line>
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/tester2.py</url>
+          <line>274</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
