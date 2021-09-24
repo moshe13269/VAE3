@@ -9,21 +9,28 @@ import time
 
 def main():
     torch.cuda.empty_cache()
-    file = open("/home/moshelaufer/PycharmProjects/VAE/data_normalized/process_state_encoder.txt", "a")
+    file = open("/home/moshelaufer/PycharmProjects/VAE/data_normalized/process_state_encoder3.txt", "a")
     device = torch.device('cuda:1')
-    model = Encoder().to(device)
+    model = Encoder()
+    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder2.pt"
+
+    checkpoint = torch.load(path2model)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.to(device)
+    # model.weight_init()
+
     model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
 
     mse_criterion = nn.MSELoss().to(device)
     ce_criterion = nn.CrossEntropyLoss().to(device)
-    n_epochs = 30
+    n_epochs = 100
     loss_arr_mid = []
     loss_arr_out = []
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 150
+    batch_size = 350
 
     for epoch in range(n_epochs):
         dataset = Dataset(
@@ -77,16 +84,16 @@ def main():
 
         file.write("Loss mid= {}, epoch = {} wl".format(loss_mid_tot, epoch))
         print("Loss mid train = {}, epoch = {}, batch_size = {} wl".format(loss_mid_tot, epoch, batch_size))
-        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/loss_arr_encoder.npy"
+        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/loss_arr_encoder3.npy"
         np.save(outfile_epoch, np.asarray(loss_arr_mid))
 
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/model_encoder.pth"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder3.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_arr_mid[:len(loss_arr_out) - 2]) >= loss_arr_mid[len(loss_arr_out) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE/data_normalized/model_encoder.pth"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder3.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")

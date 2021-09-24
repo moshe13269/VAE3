@@ -1,6 +1,6 @@
 import pandas as pd
 import torch
-from models.model_VAE_osc2 import VAE_osc2
+from models.model_VAE_lfo1destination2 import VAE_lfo1destination2
 # from models.model_Encoder import Encoder
 from utils.dataloader import Dataset
 import numpy as np
@@ -18,7 +18,7 @@ class Results:
         self.path2Encoder = path2encoder
         self.path2VAE = path2vae
         # self.Encoder = Encoder().float().to(self.device)
-        self.VAE = VAE_osc2().float().to(self.device)
+        self.VAE = VAE_lfo1destination2().float().to(self.device)
         self.path2csv = path2csv
         self.path2dataset = path2dataset
         self.vae = vae
@@ -58,7 +58,8 @@ class Results:
                 spec = data[0].float().to(self.device)
                 label = data[1]
                 if self.vae:
-                    _, vector = self.VAE(spec)
+                    # _, vector = self.VAE(spec)
+                    vector = self.VAE(spec)
                 # else:
                 #     vector = self.Encoder(spec)
                 #     print(vector)
@@ -86,8 +87,8 @@ def main():
                     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv"]
 
     path2save = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2"
-    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
-    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2/modelVAE_KL2.pt"
+    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/modelVAE_KL2.pt"
+    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/modelVAE_KL2.pt"
 
     inference_model = Results(path2save, path2encoder, path2vae, path2dataset[0], path2dataset[1])
     inference_model.load_weight_model()
