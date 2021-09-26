@@ -1,7 +1,7 @@
 import pandas as pd
 import torch
-from models.model_VAE_lfo1destination2 import VAE_lfo1destination2
-# from models.model_Encoder import Encoder
+# from models.model_VAE_lfo1destination2 import VAE_lfo1destination2
+from models.model_Encoder import Encoder
 from utils.dataloader import Dataset
 import numpy as np
 import os
@@ -17,17 +17,17 @@ class Results:
         self.device = torch.device('cuda:3')
         self.path2Encoder = path2encoder
         self.path2VAE = path2vae
-        # self.Encoder = Encoder().float().to(self.device)
-        self.VAE = VAE_lfo1destination2().float().to(self.device)
+        self.Encoder = Encoder().float().to(self.device)
+        # self.VAE = VAE_lfo1destination2().float().to(self.device)
         self.path2csv = path2csv
         self.path2dataset = path2dataset
         self.vae = vae
 
     def load_weight_model(self):
-        # self.Encoder.load_state_dict(torch.load(self.path2Encoder)['model_state_dict'])
-        # self.Encoder.eval()
-        self.VAE.load_state_dict(torch.load(self.path2VAE)['model_state_dict'])
-        self.VAE.eval()
+        self.Encoder.load_state_dict(torch.load(self.path2Encoder)['model_state_dict'])
+        self.Encoder.eval()
+        # self.VAE.load_state_dict(torch.load(self.path2VAE)['model_state_dict'])
+        # self.VAE.eval()
 
     def save_results2csv(self, np_array):
         columns = ['24.osc2waveform']#, '26.lfo1waveform', '32.lfo1destination',

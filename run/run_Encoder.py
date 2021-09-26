@@ -30,7 +30,7 @@ def main():
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 350
+    batch_size = 450
 
     for epoch in range(n_epochs):
         dataset = Dataset(
