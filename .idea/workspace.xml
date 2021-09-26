@@ -160,9 +160,9 @@
     <list>
       <item itemvalue="Python.inference_stats" />
       <item itemvalue="Python.model_VAE_lfo1destination2" />
-      <item itemvalue="Python.plot_loss" />
-      <item itemvalue="Python.run_Encoder" />
       <item itemvalue="Python.run_VAE_lfo1destination" />
+      <item itemvalue="Python.run_Encoder" />
+      <item itemvalue="Python.plot_loss" />
     </list>
     <recent_temporary>
       <list>

@@ -30,11 +30,11 @@ class Results:
         # self.VAE.eval()
 
     def save_results2csv(self, np_array):
-        columns = ['24.osc2waveform']#, '26.lfo1waveform', '32.lfo1destination',
-                #   '30.lfo1amount', '28.lfo1rate', '3.cufoff'] #, '4.resonance'
+        columns = ['24.osc2waveform', '26.lfo1waveform', '32.lfo1destination',
+                   '30.lfo1amount', '28.lfo1rate', '3.cufoff'] #, '4.resonance'
         df = pd.DataFrame(np_array, columns=columns)
         if self.vae:
-            df.to_csv(os.path.join(self.path2save,'vae.csv'))
+            df.to_csv(os.path.join(self.path2save, 'vae.csv'))
         else:
             df.to_csv(os.path.join(self.path2save, 'encoder.csv'))
         print('csv file had been saved')
