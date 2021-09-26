@@ -41,17 +41,17 @@ class Results:
 
     @staticmethod
     def convert_vector_to_label(vector, label):
-        a0 = F.cross_entropy(vector[:, :4], label[:, :1].squeeze().long()).argmax().item()
-        a1 = F.cross_entropy(vector[:, 4:8], label[:, 1:2].squeeze().long()).argmax().item()
-        a2 = F.cross_entropy(vector[:, 8:10], label[:, 2:3].squeeze().long()).argmax().item()
-        a3_5 = vector[:, 10:].numpy()
-        pred_label = np.concatenate(np.asarray([a0, a1, a2]), a3_5)
+        a0 = F.softmax(vector[:, :4].squeeze()).argmax().item()
+        a1 = F.softmax(vector[:, 4:8].squeeze()).argmax().item()
+        a2 = F.softmax(vector[:, 8:10].squeeze()).argmax().item()
+        a3_5 = vector[:, 10:].cpu().numpy().squeeze()
+        pred_label = np.concatenate((np.asarray([a0, a1, a2]), a3_5))
         return pred_label
 
     def predict_param(self):
         dataset = Dataset(self.path2dataset, self.path2csv, train=1)
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
-        predicted_arr = np.empty([len(data_loader.dataset), 1], dtype=float)
+        predicted_arr = np.empty([len(data_loader.dataset), 6], dtype=float)
 
         with torch.no_grad():
             c = 1
@@ -83,7 +83,7 @@ class Results:
                 # l[int(label[0][2].item())] += 1
                 # if int(label[0][2].item()) != 0:
                 #     d += 1
-                pred_label = Results.convert_vector_to_label(vector.squeeze(), label)
+                pred_label = Results.convert_vector_to_label(vector, label.to(self.device))
                 predicted_arr[c] = pred_label
                 predicted_arr[c+1] = label.squeeze()
                 predicted_arr[c+2] = np.asarray([0, 0, 0, 0, 0, 0])
