@@ -51,7 +51,7 @@ class Results:
     def predict_param(self):
         dataset = Dataset(self.path2dataset, self.path2csv, train=0)
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False)
-        predicted_arr = np.empty([len(data_loader.dataset)+1, 6], dtype=float)
+        predicted_arr = np.empty([(len(data_loader.dataset)+1)*3, 6], dtype=float)
 
         with torch.no_grad():
             c = 1
