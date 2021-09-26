@@ -49,16 +49,16 @@ class Results:
         return pred_label
 
     def predict_param(self):
-        dataset = Dataset(self.path2dataset, self.path2csv, train=1)
-        data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
-        predicted_arr = np.empty([len(data_loader.dataset), 6], dtype=float)
+        dataset = Dataset(self.path2dataset, self.path2csv, train=0)
+        data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False)
+        predicted_arr = np.empty([len(data_loader.dataset)+1, 6], dtype=float)
 
         with torch.no_grad():
             c = 1
             counter =0
             d=e=f=0
             d1 = e1 = f1 = 0
-            to_stop = 1000
+            to_stop = 100000
             l = [0,0,0,0]
             for batch_num, data in enumerate(data_loader):
                 if batch_num % to_stop == 0 and batch_num > 0:
