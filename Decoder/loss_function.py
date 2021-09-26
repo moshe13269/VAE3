@@ -10,3 +10,5 @@ def lsd(spec, pred_spec):
 
 def kl_div(spec, pred_spec):
     return F.kl_div(F.log_softmax(spec, 0), F.softmax(pred_spec, 0), reduction="none").mean()
+
+
