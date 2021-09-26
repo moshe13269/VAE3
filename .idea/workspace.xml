@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/run_Encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/run/run_Encoder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/inference_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/inference_stats.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +49,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.run_Encoder">
+  <component name="RunManager" selected="Python.inference_stats">
     <configuration name="inference_stats" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,9 +164,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.inference_stats" />
         <item itemvalue="Python.run_Encoder" />
         <item itemvalue="Python.plot_loss" />
-        <item itemvalue="Python.inference_stats" />
         <item itemvalue="Python.run_VAE_lfo1destination" />
         <item itemvalue="Python.model_VAE_lfo1destination2" />
       </list>
@@ -295,7 +293,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632496347212</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="ver0">
+      <created>1632684657559</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1632684657559</updated>
+    </task>
+    <task id="LOCAL-00018" summary="ver0">
+      <created>1632684700396</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1632684700396</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -332,7 +344,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
-          <line>69</line>
+          <line>78</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -349,6 +361,11 @@
           <url>file://$PROJECT_DIR$/utils/plot_loss.py</url>
           <line>9</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/inference_stats.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

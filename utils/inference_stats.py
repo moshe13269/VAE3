@@ -12,7 +12,7 @@ import torch.nn.functional as F
 
 class Results:
 
-    def __init__(self, path2save, path2encoder, path2vae, path2dataset, path2csv, vae=1):
+    def __init__(self, path2save, path2encoder, path2vae, path2dataset, path2csv, vae=0):
         self.path2save = path2save
         self.device = torch.device('cuda:3')
         self.path2Encoder = path2encoder
@@ -39,6 +39,15 @@ class Results:
             df.to_csv(os.path.join(self.path2save, 'encoder.csv'))
         print('csv file had been saved')
 
+    @staticmethod
+    def convert_vector_to_label(vector, label):
+        a0 = F.cross_entropy(vector[:, :4], label[:, :1].squeeze().long()).argmax().item()
+        a1 = F.cross_entropy(vector[:, 4:8], label[:, 1:2].squeeze().long()).argmax().item()
+        a2 = F.cross_entropy(vector[:, 8:10], label[:, 2:3].squeeze().long()).argmax().item()
+        a3_5 = vector[:, 10:].numpy()
+        pred_label = np.concatenate(np.asarray([a0, a1, a2]), a3_5)
+        return pred_label
+
     def predict_param(self):
         dataset = Dataset(self.path2dataset, self.path2csv, train=1)
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
@@ -60,23 +69,25 @@ class Results:
                 if self.vae:
                     # _, vector = self.VAE(spec)
                     vector = self.VAE(spec)
-                # else:
-                #     vector = self.Encoder(spec)
+                else:
+                    vector = self.Encoder(spec)
                 #     print(vector)
-                vector = vector.cpu().numpy()
-                vector = vector.squeeze()
-                # vector = convert_label4output(vector)
-                # vector = np.around(vector, decimals=2)
-                vector = F.softmax(torch.from_numpy(vector)).argmax().item()
-                if vector == int(label[0][0].item()):
-                    counter += 1
-                # print(label[0][2].item(), vector)
-                l[int(label[0][2].item())] += 1
-                if int(label[0][2].item()) != 0:
-                    d += 1
-                predicted_arr[c] = vector
-                predicted_arr[c+1] = label[0][0]
-                c += 2
+                # vector = vector.cpu().numpy()
+                # vector = vector.squeeze()
+                # # vector = convert_label4output(vector)
+                # # vector = np.around(vector, decimals=2)
+                # vector = F.softmax(torch.from_numpy(vector)).argmax().item()
+                # if vector == int(label[0][0].item()):
+                #     counter += 1
+                # # print(label[0][2].item(), vector)
+                # l[int(label[0][2].item())] += 1
+                # if int(label[0][2].item()) != 0:
+                #     d += 1
+                pred_label = Results.convert_vector_to_label(vector.squeeze(), label)
+                predicted_arr[c] = pred_label
+                predicted_arr[c+1] = label.squeeze()
+                predicted_arr[c+2] = np.asarray([0, 0, 0, 0, 0, 0])
+                c += 3
         print('acc: %{}, d(0) %{}'.format(counter/to_stop, d/to_stop))
         print(l)
         return predicted_arr
@@ -86,9 +97,9 @@ def main():
     path2dataset = ["/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
                     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv"]
 
-    path2save = "/home/moshelaufer/PycharmProjects/VAE2/data/_osc2"
-    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/modelVAE_KL2.pt"
-    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/lfo1destination/modelVAE_KL2.pt"
+    path2save = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder"
+    path2encoder = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder3.pt"
+    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder3.pt"
 
     inference_model = Results(path2save, path2encoder, path2vae, path2dataset[0], path2dataset[1])
     inference_model.load_weight_model()
