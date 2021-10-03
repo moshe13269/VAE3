@@ -16,6 +16,7 @@ class Discriminator(nn.Module):
         super(Discriminator, self).__init__()
         # self.ups1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
         self.max_pool = nn.MaxPool2d(2)
+        self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
 
         self.conv1 = nn.Conv2d(1, 16, 4, padding=1)
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1)
@@ -43,39 +44,46 @@ class Discriminator(nn.Module):
 
         self.fc1 = nn.Linear(4608, 658)
         self.fc2 = nn.Linear(658, 13)
-        self.fc3 = nn.Linear(13, 2)
+        self.fc3 = nn.Linear(13, 1)
 
     def weight_init(self):
         for m in self._modules:
             normal_init(self._modules[m])
 
     def forward(self, x):
-        x = F.relu(self.bnm2(self.conv1(x)))
-        x = F.relu(self.bnm2(self.conv2(x)))
+        x = F.leaky_relu(self.bnm2(self.conv1(x)))
+        x = F.leaky_relu(self.bnm2(self.conv2(x)))
         x = self.max_pool(x)
 
-        x = F.relu(self.bnm4(self.conv3(x)))
-        x = F.relu(self.bnm4(self.conv4(x)))
+        x = F.leaky_relu(self.bnm4(self.conv3(x)))
+        x = F.leaky_relu(self.bnm4(self.conv4(x)))
         x = self.max_pool(x)
 
-        x = F.relu(self.bnm6(self.conv5(x)))
-        x = F.relu(self.bnm6(self.conv6(x)))
+        x = F.leaky_relu(self.bnm6(self.conv5(x)))
+        x = F.leaky_relu(self.bnm6(self.conv6(x)))
         x = self.max_pool(x)
 
-        x = F.relu(self.bnm8(self.conv7(x)))
-        x = F.relu(self.bnm8(self.conv8(x)))
+        x = F.leaky_relu(self.bnm8(self.conv7(x)))
+        x = F.leaky_relu(self.bnm8(self.conv8(x)))
         x = self.max_pool(x)
 
-        x = F.relu(self.bnm10(self.conv9(x)))
-        x = F.relu(self.bnm10(self.conv10(x)))
+        x = F.leaky_relu(self.bnm10(self.conv9(x)))
+        x = F.leaky_relu(self.bnm10(self.conv10(x)))
         x = self.max_pool(x)
 
-        x = F.relu(self.bnm12(self.conv11(x)))
-        x = F.relu(self.bnm12(self.conv12(x)))
+        x = F.leaky_relu(self.bnm12(self.conv11(x)))
+        x = F.leaky_relu(self.bnm12(self.conv12(x)))
         x = self.max_pool(x)
 
         x = torch.flatten(x, 1)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.relu(self.fc2(x))
+        x = F.leaky_relu(self.fc1(x))
+        x = F.leaky_relu(self.fc2(x))
+        x = F.sigmoid(self.fc3(x))
         return x
+
+
+# d = Discriminator()
+# d.weight_init()
+# s = torch.rand(17,1,256,256).float()
+# print(d(s))
+
