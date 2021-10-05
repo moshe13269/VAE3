@@ -72,7 +72,7 @@ class Generator(nn.Module):
         elif x.shape[2] == 256:
             return F.relu(self.conv6_to_spec(x))
 
-    def forward(self, x):
+    def forward(self, x, param):
         x = F.relu(self.bnm1(self.conv1(x)))
         x = F.relu(self.bnm2(self.conv2(x)))
         spec0 = x
