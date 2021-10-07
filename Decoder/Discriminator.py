@@ -81,7 +81,7 @@ class Discriminator(nn.Module):
         x = F.leaky_relu(self.bnm12(self.conv12(x)))
         x = self.max_pool(x) + x5
 
-        # option: add residual function 
+        # option: add residual function
         x = torch.flatten(x, 1)
         x = F.leaky_relu(self.fc1(x))
         x = F.leaky_relu(self.fc2(x))
