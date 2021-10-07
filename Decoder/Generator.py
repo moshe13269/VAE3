@@ -75,6 +75,7 @@ class Generator(nn.Module):
     def forward(self, x, param):
         x = F.relu(self.bnm1(self.conv1(x)))
         x = F.relu(self.bnm2(self.conv2(x)))
+        x = x * param[0]
         spec0 = x
         spec0 = self.to_spec(spec0)
         spec0 = self.ups1(spec0)
@@ -82,6 +83,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm2(self.conv3(x)))
         x = F.relu(self.bnm4(self.conv4(x)))
+        x = x * param[1]
         spec1 = x
         spec1 = self.to_spec(spec1)
         spec1 = self.ups1(spec1+spec0)
@@ -89,6 +91,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm4(self.conv5(x)))
         x = F.relu(self.bnm6(self.conv6(x)))
+        x = x * param[2]
         spec2 = x
         spec2 = self.to_spec(spec2)
         spec2 = self.ups1(spec2 + spec1)
@@ -96,6 +99,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm6(self.conv7(x)))
         x = F.relu(self.bnm8(self.conv8(x)))
+        x = x * param[3]
         spec3 = x
         spec3 = self.to_spec(spec3 + spec2)
         spec3 = self.ups1(spec3)
@@ -103,6 +107,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm8(self.conv9(x)))
         x = F.relu(self.bnm10(self.conv10(x)))
+        x = x * param[4]
         spec4 = x
         spec4 = self.to_spec(spec4 + spec3)
         spec4 = self.ups1(spec4)
@@ -110,6 +115,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm10(self.conv11(x)))
         x = F.relu(self.bnm12(self.conv12(x)))
+        x = x * param[5]
         spec5 = x
         spec5 = self.to_spec(spec5 + spec4)
         spec5 = self.ups1(spec5)

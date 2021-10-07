@@ -63,3 +63,17 @@ while c3>0:
 print('the pat for 1.5 option 2', tot-d2)
 print(tot, i )
 print('------------------------')
+
+
+c7 = 137943-13000
+d1 = c7
+tot = 0
+i = 0
+while c7>0:
+    i+=1
+    c7 += c7 * (1.5 / 1200)
+    c7-=  min(540,c7)
+    tot += 540
+print('the pat for feaf1.5', tot-d1)
+print(tot, i/12)
+print('------------------------')
