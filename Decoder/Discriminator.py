@@ -14,7 +14,7 @@ def normal_init(m):
 class Discriminator(nn.Module):
     def __init__(self):
         super(Discriminator, self).__init__()
-        # self.ups1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        self.down = nn.Downsample(scale_factor=0.5, mode='bilinear', align_corners=True)
         self.max_pool = nn.MaxPool2d(2)
         self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
 
@@ -51,30 +51,37 @@ class Discriminator(nn.Module):
             normal_init(self._modules[m])
 
     def forward(self, x):
+        x0 = self.down(x)
         x = F.leaky_relu(self.bnm2(self.conv1(x)))
         x = F.leaky_relu(self.bnm2(self.conv2(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) + x0
 
+        x1 = self.down(x)
         x = F.leaky_relu(self.bnm4(self.conv3(x)))
         x = F.leaky_relu(self.bnm4(self.conv4(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) +x1
 
+        x2 = self.down(x)
         x = F.leaky_relu(self.bnm6(self.conv5(x)))
         x = F.leaky_relu(self.bnm6(self.conv6(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) + x2
 
+        x3 = self.down(x)
         x = F.leaky_relu(self.bnm8(self.conv7(x)))
         x = F.leaky_relu(self.bnm8(self.conv8(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) + x3
 
+        x4 = self.down(x)
         x = F.leaky_relu(self.bnm10(self.conv9(x)))
         x = F.leaky_relu(self.bnm10(self.conv10(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) + x4
 
+        x5 = self.down(x)
         x = F.leaky_relu(self.bnm12(self.conv11(x)))
         x = F.leaky_relu(self.bnm12(self.conv12(x)))
-        x = self.max_pool(x)
+        x = self.max_pool(x) + x5
 
+        # option: add residual function 
         x = torch.flatten(x, 1)
         x = F.leaky_relu(self.fc1(x))
         x = F.leaky_relu(self.fc2(x))
@@ -84,6 +91,9 @@ class Discriminator(nn.Module):
 
 # d = Discriminator()
 # d.weight_init()
-# s = torch.rand(17,1,256,256).float()
-# print(d(s))
-
+# s = torch.rand(1,1,8,8).float()
+# # print(d(s))
+# print(s)
+# rr = nn.Upsample(scale_factor=0.5, mode='bilinear')
+# print(rr(s))
+# # print(F.interpolate(s, scale_factor=0.5, mode='bilinear').shape)
