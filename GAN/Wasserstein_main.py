@@ -2,12 +2,18 @@ import torch
 import torch.optim as optim
 from Decoder.Discriminator import Discriminator
 from Decoder.Generator import Generator
-from utils.dataloader_gan import Dataset
+from utils.dataloader import Dataset
 from training import Trainer
 
 
 device = torch.device('cuda:1')
-data_loader = 
+batch_size = 250
+
+dataset = Dataset(
+    "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
+    "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv")
+data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
+                                          pin_memory=True, drop_last=True)
 
 generator = Generator()
 generator.to(device)

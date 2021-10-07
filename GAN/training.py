@@ -8,7 +8,7 @@ from torch.autograd import grad as torch_grad
 import matplotlib.pyplot as plt
 
 
-class Trainer():
+class Trainer:
     def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer,
                  gp_weight=10, critic_iterations=5, print_every=500,
                  use_cuda=True):
@@ -110,10 +110,10 @@ class Trainer():
     def _train_epoch(self, data_loader):
         for i, data in enumerate(data_loader):
             self.num_steps += 1
-            self._critic_train_iteration(data[0])
+            self._critic_train_iteration(data[1])
             # Only update generator every |critic_iterations| iterations
             if self.num_steps % self.critic_iterations == 0:
-                self._generator_train_iteration(data[0])
+                self._generator_train_iteration(data[1])
 
             if i % self.print_every == 0:
                 print("Iteration {}".format(i + 1))
