@@ -14,6 +14,7 @@ def normal_init(m):
 class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
+        self.x = torch.ones((1, 4, 4))
         self.ups1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
         self.max_pool = nn.MaxPool2d(2)
         self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
@@ -72,8 +73,8 @@ class Generator(nn.Module):
         elif x.shape[2] == 256:
             return F.relu(self.conv6_to_spec(x))
 
-    def forward(self, x, param):
-        x = F.relu(self.bnm1(self.conv1(x)))
+    def forward(self, param):
+        x = F.relu(self.bnm1(self.conv1(self.x)))
         x = F.relu(self.bnm2(self.conv2(x)))
         x = x * param[0]
         spec0 = x

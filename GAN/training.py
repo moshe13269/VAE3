@@ -9,24 +9,23 @@ import matplotlib.pyplot as plt
 
 
 class Trainer:
-    def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer,
-                 gp_weight=10, critic_iterations=5, print_every=500,
-                 use_cuda=True):
+    def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer, device, gp_weight=10,
+                 critic_iterations=5, print_every=500):
         self.G = generator
         self.G_opt = gen_optimizer
         self.D = discriminator
         self.D_opt = dis_optimizer
         self.losses = {'G': [], 'D': [], 'GP': [], 'gradient_norm': []}
         self.num_steps = 0
-        self.use_cuda = use_cuda
+        self.device = device
         self.gp_weight = gp_weight
         self.critic_iterations = critic_iterations
         self.print_every = print_every
         self.loss_gp = []
         self.loss_d = []
-        if self.use_cuda:
-            self.G.cuda()
-            self.D.cuda()
+        if self.device:
+            self.G.to(self.device)
+            self.D.to(self.device)
 
     def _critic_train_iteration(self, data):
         """ """
@@ -36,8 +35,8 @@ class Trainer:
 
         # Calculate probabilities on real and generated data
         data = Variable(data)
-        if self.use_cuda:
-            data = data.cuda()
+        if self.device:
+            data = data.to(self.device)
         d_real = self.D(data)
         d_generated = self.D(generated_data)
 
@@ -61,7 +60,7 @@ class Trainer:
 
         # Get generated data
         batch_size = data.size()[0]
-        generated_data = self.sample_generator(batch_size)
+        generated_data = self.sample_generator(batch_size, data[1])
 
         # Calculate loss and optimize
         d_generated = self.D(generated_data)
@@ -78,12 +77,12 @@ class Trainer:
         # Calculate interpolation
         alpha = torch.rand(batch_size, 1, 1, 1)
         alpha = alpha.expand_as(real_data)
-        if self.use_cuda:
-            alpha = alpha.cuda()
+        if self.device:
+            alpha = alpha.to(self.device)
         interpolated = alpha * real_data.data + (1 - alpha) * generated_data.data
         interpolated = Variable(interpolated, requires_grad=True)
-        if self.use_cuda:
-            interpolated = interpolated.cuda()
+        if self.device:
+            interpolated = interpolated.to(self.device)
 
         # Calculate probability of interpolated examples
         prob_interpolated = self.D(interpolated)
@@ -91,7 +90,7 @@ class Trainer:
         # Calculate gradients of probabilities with respect to examples
         gradients = torch_grad(outputs=prob_interpolated, inputs=interpolated,
                                grad_outputs=torch.ones(
-                                   prob_interpolated.size()).cuda() if self.use_cuda else torch.ones(
+                                   prob_interpolated.size()).to(self.device) if self.device else torch.ones(
                                    prob_interpolated.size()),
                                create_graph=True, retain_graph=True)[0]
 
@@ -129,8 +128,8 @@ class Trainer:
         if save_training_gif:
             # Fix latents to see how image generation improves during training
             fixed_latents = Variable(self.G.module.sample_latent(64))  ###$$$
-            if self.use_cuda:
-                fixed_latents = fixed_latents.cuda()
+            if self.device:
+                fixed_latents = fixed_latents.to(self.device)
             training_progress_images = []
 
         for epoch in range(epochs):
@@ -161,11 +160,11 @@ class Trainer:
         ax1.legend()
         plt.show()
 
-    def sample_generator(self, num_samples):
-        latent_samples = Variable(self.G.module.sample_latent(num_samples))
-        if self.use_cuda:
-            latent_samples = latent_samples.cuda()
-        generated_data = self.G(latent_samples)
+    def sample_generator(self, num_samples, vector):
+        # latent_samples = Variable(self.G.module.sample_latent(num_samples))
+        # if self.device:
+        #     latent_samples = latent_samples.to(self.device)
+        generated_data = self.G(vector.to(self.device))
         return generated_data
 
     def sample(self, num_samples):
