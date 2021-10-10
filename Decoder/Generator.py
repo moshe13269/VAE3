@@ -14,7 +14,6 @@ def normal_init(m):
 class Generator(nn.Module):
     def __init__(self):
         super(Generator, self).__init__()
-        self.x = torch.ones((1, 4, 4))
         self.ups1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
         self.max_pool = nn.MaxPool2d(2)
         self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
@@ -73,10 +72,10 @@ class Generator(nn.Module):
         elif x.shape[2] == 256:
             return F.relu(self.conv6_to_spec(x))
 
-    def forward(self, param):
-        x = F.relu(self.bnm1(self.conv1(self.x)))
+    def forward(self, param, x):
+        x = F.relu(self.bnm1(self.conv1(x)))
         x = F.relu(self.bnm2(self.conv2(x)))
-        x = x * param[0]
+        x = x * param[:, 0].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec0 = x
         spec0 = self.to_spec(spec0)
         spec0 = self.ups1(spec0)
@@ -84,7 +83,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm2(self.conv3(x)))
         x = F.relu(self.bnm4(self.conv4(x)))
-        x = x * param[1]
+        x = x * param[:, 1].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec1 = x
         spec1 = self.to_spec(spec1)
         spec1 = self.ups1(spec1+spec0)
@@ -92,7 +91,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm4(self.conv5(x)))
         x = F.relu(self.bnm6(self.conv6(x)))
-        x = x * param[2]
+        x = x * param[:, 2].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec2 = x
         spec2 = self.to_spec(spec2)
         spec2 = self.ups1(spec2 + spec1)
@@ -100,7 +99,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm6(self.conv7(x)))
         x = F.relu(self.bnm8(self.conv8(x)))
-        x = x * param[3]
+        x = x * param[:, 3].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec3 = x
         spec3 = self.to_spec(spec3 + spec2)
         spec3 = self.ups1(spec3)
@@ -108,7 +107,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm8(self.conv9(x)))
         x = F.relu(self.bnm10(self.conv10(x)))
-        x = x * param[4]
+        x = x * param[:, 4].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec4 = x
         spec4 = self.to_spec(spec4 + spec3)
         spec4 = self.ups1(spec4)
@@ -116,7 +115,7 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm10(self.conv11(x)))
         x = F.relu(self.bnm12(self.conv12(x)))
-        x = x * param[5]
+        x = x * param[:, 5].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec5 = x
         spec5 = self.to_spec(spec5 + spec4)
         spec5 = self.ups1(spec5)

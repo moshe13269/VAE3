@@ -29,7 +29,7 @@ D_optimizer = optim.Adam(discriminator.parameters(), lr=lr, betas=betas)
 
 # Train model
 epochs = 200
-trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, device=True)
+trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, torch.device('cuda:2'))
 
 trainer.train(data_loader, epochs)
 

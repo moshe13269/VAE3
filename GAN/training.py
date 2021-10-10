@@ -1,11 +1,8 @@
-import imageio
 import numpy as np
 import torch
-import torch.nn as nn
 from torchvision.utils import make_grid
 from torch.autograd import Variable
 from torch.autograd import grad as torch_grad
-import matplotlib.pyplot as plt
 
 
 class Trainer:
@@ -30,11 +27,11 @@ class Trainer:
     def _critic_train_iteration(self, data):
         """ """
         # Get generated data
-        batch_size = data.size()[0]
-        generated_data = self.sample_generator(batch_size)
+        batch_size = data[0].size()[0]
+        generated_data = self.sample_generator(batch_size, data[1])
 
         # Calculate probabilities on real and generated data
-        data = Variable(data)
+        data = Variable(data[0])
         if self.device:
             data = data.to(self.device)
         d_real = self.D(data)
@@ -109,10 +106,10 @@ class Trainer:
     def _train_epoch(self, data_loader):
         for i, data in enumerate(data_loader):
             self.num_steps += 1
-            self._critic_train_iteration(data[1])
+            self._critic_train_iteration(data)
             # Only update generator every |critic_iterations| iterations
             if self.num_steps % self.critic_iterations == 0:
-                self._generator_train_iteration(data[1])
+                self._generator_train_iteration(data)
 
             if i % self.print_every == 0:
                 print("Iteration {}".format(i + 1))
@@ -125,49 +122,49 @@ class Trainer:
         self.loss_d.append(self.losses['D'][-1])
 
     def train(self, data_loader, epochs, save_training_gif=True):
-        if save_training_gif:
-            # Fix latents to see how image generation improves during training
-            fixed_latents = Variable(self.G.module.sample_latent(64))  ###$$$
-            if self.device:
-                fixed_latents = fixed_latents.to(self.device)
-            training_progress_images = []
+        # if save_training_gif:
+        #     # Fix latents to see how image generation improves during training
+        #     fixed_latents = Variable(self.G.module.sample_latent(64))  ###$$$
+        #     if self.device:
+        #         fixed_latents = fixed_latents.to(self.device)
+        #     training_progress_images = []
 
         for epoch in range(epochs):
             print("\nEpoch {}".format(epoch + 1))
             self._train_epoch(data_loader)
 
-            if save_training_gif:
-                # Generate batch of images and convert to grid
-                img_grid = make_grid(self.G(fixed_latents).cpu().data)
-                # Convert to numpy and transpose axes to fit imageio convention
-                # i.e. (width, height, channels)
-                img_grid = np.transpose(img_grid.numpy(), (1, 2, 0))
-                # Add image grid to training progress
-                training_progress_images.append(img_grid)
+            # if save_training_gif:
+            #     # Generate batch of images and convert to grid
+            #     img_grid = make_grid(self.G(fixed_latents).cpu().data)
+            #     # Convert to numpy and transpose axes to fit imageio convention
+            #     # i.e. (width, height, channels)
+            #     img_grid = np.transpose(img_grid.numpy(), (1, 2, 0))
+            #     # Add image grid to training progress
+            #     # training_progress_images.append(img_grid)
 
-        if save_training_gif:
-            imageio.mimsave('./training_{}_epochs.gif'.format(epochs),
-                            training_progress_images)
-        fig = plt.figure()
-        ax1 = fig.add_subplot(111)
-        plt.title('Loss vs Epochs')
-        plt.xlabel('Epochs')
-        plt.ylabel('Loss ')
-        x = [i for i in range(len(self.loss_gp))]
-        y1 = self.loss_gp
-        y2 = self.loss_d
-        plt.plot(x, y1, x, y2)
-        ax1.legend()
-        plt.show()
+        # if save_training_gif:
+        #     imageio.mimsave('./training_{}_epochs.gif'.format(epochs),
+        #                     training_progress_images)
+        # fig = plt.figure()
+        # ax1 = fig.add_subplot(111)
+        # plt.title('Loss vs Epochs')
+        # plt.xlabel('Epochs')
+        # plt.ylabel('Loss ')
+        # x = [i for i in range(len(self.loss_gp))]
+        # y1 = self.loss_gp
+        # y2 = self.loss_d
+        # plt.plot(x, y1, x, y2)
+        # ax1.legend()
+        # plt.show()
 
     def sample_generator(self, num_samples, vector):
         # latent_samples = Variable(self.G.module.sample_latent(num_samples))
         # if self.device:
         #     latent_samples = latent_samples.to(self.device)
-        generated_data = self.G(vector.to(self.device))
+        generated_data = self.G(vector.to(self.device), torch.ones((vector.shape[0], 512, 4, 4)).to(self.device))
         return generated_data
 
-    def sample(self, num_samples):
-        generated_data = self.sample_generator(num_samples)
-        # Remove color channel
-        return generated_data.data.cpu().numpy()[:, 0, :, :]
+    # def sample(self, num_samples):
+    #     generated_data = self.sample_generator(num_samples)
+    #     # Remove color channel
+    #     return generated_data.data.cpu().numpy()[:, 0, :, :]

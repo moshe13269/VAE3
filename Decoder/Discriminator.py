@@ -14,11 +14,11 @@ def normal_init(m):
 class Discriminator(nn.Module):
     def __init__(self):
         super(Discriminator, self).__init__()
-        self.down = nn.Downsample(scale_factor=0.5, mode='bilinear', align_corners=True)
+        self.down = nn.Upsample(scale_factor=0.5, mode='bilinear', align_corners=True)
         self.max_pool = nn.MaxPool2d(2)
         self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
 
-        self.conv1 = nn.Conv2d(1, 16, 4, padding=1)
+        self.conv1 = nn.Conv2d(1, 16, 4, padding=2)
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1)
         self.bnm2 = nn.BatchNorm2d(num_features=16, momentum=0.1)
 
@@ -59,7 +59,7 @@ class Discriminator(nn.Module):
         x1 = self.down(x)
         x = F.leaky_relu(self.bnm4(self.conv3(x)))
         x = F.leaky_relu(self.bnm4(self.conv4(x)))
-        x = self.max_pool(x) +x1
+        x = self.max_pool(x) + x1
 
         x2 = self.down(x)
         x = F.leaky_relu(self.bnm6(self.conv5(x)))
