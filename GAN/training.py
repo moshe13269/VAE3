@@ -106,6 +106,10 @@ class Trainer:
         return self.gp_weight * ((gradients_norm - 1) ** 2).mean()
 
     def _train_epoch(self, data_loader):
+        torch.save(
+            {'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
+             'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
+            , os.path.join(self.path2save, 'weight.pt'))
         for i, data in enumerate(data_loader):
             self.num_steps += 1
             self._critic_train_iteration(data)
@@ -124,7 +128,7 @@ class Trainer:
         self.loss_d.append(self.losses['D'][-1])
         torch.save({'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
                     'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
-                   , self.path2save)
+                   , os.path.join(self.path2save, 'weight.pt'))
 
         with open(os.path.join(self.path2save, 'losses.pickle'), 'wb') as handle:
             pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
