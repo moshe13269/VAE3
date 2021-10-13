@@ -7,7 +7,7 @@ from training import Trainer
 
 
 device = torch.device('cuda:1')
-batch_size = 250
+batch_size = 100
 
 dataset = Dataset(
     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",

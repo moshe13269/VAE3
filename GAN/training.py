@@ -3,6 +3,8 @@ import torch
 from torchvision.utils import make_grid
 from torch.autograd import Variable
 from torch.autograd import grad as torch_grad
+import os
+import pickle
 
 
 class Trainer:
@@ -20,9 +22,10 @@ class Trainer:
         self.print_every = print_every
         self.loss_gp = []
         self.loss_d = []
-        if self.device:
-            self.G.to(self.device)
-            self.D.to(self.device)
+        # if self.device:
+        self.G.to(self.device)
+        self.D.to(self.device)
+        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN/'
 
     def _critic_train_iteration(self, data):
         """ """
@@ -56,7 +59,7 @@ class Trainer:
         self.G_opt.zero_grad()
 
         # Get generated data
-        batch_size = data.size()[0]
+        batch_size = data[0].size()[0]
         generated_data = self.sample_generator(batch_size, data[1])
 
         # Calculate loss and optimize
@@ -120,6 +123,14 @@ class Trainer:
                     print("G: {}".format(self.losses['G'][-1]))
         self.loss_gp.append(self.losses['GP'][-1])
         self.loss_d.append(self.losses['D'][-1])
+        torch.save({'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
+                    'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
+                   , self.path2save)
+
+        # np.save(os.path.join(self.path2save, 'losses.npy'), np.asarray(self.loss_gp))
+        with open(os.path.join(self.path2save, 'losses.pickle'), 'wb') as handle:
+            pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        print("Model had been saved")
 
     def train(self, data_loader, epochs, save_training_gif=True):
         # if save_training_gif:

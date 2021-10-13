@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
+    <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="ver0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Decoder/Discriminator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Discriminator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/Wasserstein_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/Wasserstein_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +52,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.Discriminator">
+  <component name="RunManager" selected="Python.Wasserstein_main">
     <configuration name="Discriminator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -165,8 +167,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Discriminator" />
         <item itemvalue="Python.Wasserstein_main" />
+        <item itemvalue="Python.Discriminator" />
         <item itemvalue="Python.tester" />
         <item itemvalue="Python.Generator" />
         <item itemvalue="Python.dataloader" />
@@ -448,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633903892496</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="ver0">
+      <created>1634159132081</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1634159132081</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -504,29 +513,14 @@
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Decoder/Discriminator.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/utils/dataloader.py</url>
           <line>79</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Decoder/Discriminator.py</url>
-          <line>63</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Decoder/Discriminator.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Decoder/Discriminator.py</url>
-          <line>62</line>
-          <option name="timeStamp" value="46" />
+          <url>file://$PROJECT_DIR$/GAN/training.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

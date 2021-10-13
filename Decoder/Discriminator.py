@@ -95,10 +95,10 @@ class Discriminator(nn.Module):
         return x
 
 
-d = Discriminator()
-d.weight_init()
-s = torch.rand(3,1,256,256).float()
-print(d(s))
+# d = Discriminator()
+# d.weight_init()
+# s = torch.rand(3,1,256,256).float()
+# print(d(s))
 # print(s)
 # rr = nn.Upsample(scale_factor=0.5, mode='bilinear')
 # print(rr(s))
