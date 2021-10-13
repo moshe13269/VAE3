@@ -122,7 +122,7 @@ class Trainer:
                     print("G: {}".format(self.losses['G'][-1]))
         self.loss_gp.append(self.losses['GP'][-1])
         self.loss_d.append(self.losses['D'][-1])
-        torch.save({'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
+        torch.save({'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
                     'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
                    , self.path2save)
 
