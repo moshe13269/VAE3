@@ -24,7 +24,7 @@ class Trainer:
         self.loss_d = []
         self.G.to(self.device)
         self.D.to(self.device)
-        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN/'
+        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN'
 
     def _critic_train_iteration(self, data):
         """ """
