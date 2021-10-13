@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="ver0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Decoder/Discriminator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Discriminator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAN/Wasserstein_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/Wasserstein_main.py" afterDir="false" />
+    <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/GAN/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -457,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634159132081</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="ver0">
+      <created>1634161213176</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1634161213176</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -519,7 +523,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GAN/training.py</url>
-          <line>59</line>
+          <line>60</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>

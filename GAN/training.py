@@ -22,7 +22,6 @@ class Trainer:
         self.print_every = print_every
         self.loss_gp = []
         self.loss_d = []
-        # if self.device:
         self.G.to(self.device)
         self.D.to(self.device)
         self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN/'
@@ -127,46 +126,14 @@ class Trainer:
                     'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
                    , self.path2save)
 
-        # np.save(os.path.join(self.path2save, 'losses.npy'), np.asarray(self.loss_gp))
         with open(os.path.join(self.path2save, 'losses.pickle'), 'wb') as handle:
             pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
         print("Model had been saved")
 
     def train(self, data_loader, epochs, save_training_gif=True):
-        # if save_training_gif:
-        #     # Fix latents to see how image generation improves during training
-        #     fixed_latents = Variable(self.G.module.sample_latent(64))  ###$$$
-        #     if self.device:
-        #         fixed_latents = fixed_latents.to(self.device)
-        #     training_progress_images = []
-
         for epoch in range(epochs):
             print("\nEpoch {}".format(epoch + 1))
             self._train_epoch(data_loader)
-
-            # if save_training_gif:
-            #     # Generate batch of images and convert to grid
-            #     img_grid = make_grid(self.G(fixed_latents).cpu().data)
-            #     # Convert to numpy and transpose axes to fit imageio convention
-            #     # i.e. (width, height, channels)
-            #     img_grid = np.transpose(img_grid.numpy(), (1, 2, 0))
-            #     # Add image grid to training progress
-            #     # training_progress_images.append(img_grid)
-
-        # if save_training_gif:
-        #     imageio.mimsave('./training_{}_epochs.gif'.format(epochs),
-        #                     training_progress_images)
-        # fig = plt.figure()
-        # ax1 = fig.add_subplot(111)
-        # plt.title('Loss vs Epochs')
-        # plt.xlabel('Epochs')
-        # plt.ylabel('Loss ')
-        # x = [i for i in range(len(self.loss_gp))]
-        # y1 = self.loss_gp
-        # y2 = self.loss_d
-        # plt.plot(x, y1, x, y2)
-        # ax1.legend()
-        # plt.show()
 
     def sample_generator(self, num_samples, vector):
         # latent_samples = Variable(self.G.module.sample_latent(num_samples))
