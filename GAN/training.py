@@ -55,8 +55,7 @@ class Trainer:
         self.D_opt.step()
 
         # Record loss
-        self.losses_epochs['D'] += d_loss.data # data[0]
-
+        self.losses_epochs['D'] += d_loss.data  # data[0]
 
     def _generator_train_iteration(self, data):
         """ """
@@ -75,7 +74,6 @@ class Trainer:
         # Record loss
         self.losses['G'].append(g_loss.data)  # data[0]##############
         self.losses_counter['G'] += 1
-
 
     def _gradient_penalty(self, real_data, generated_data):
         batch_size = real_data.size()[0]
@@ -106,7 +104,6 @@ class Trainer:
         self.losses['gradient_norm'].append(gradients.norm(2, dim=1).mean().data)
         self.losses_counter['gradient_norm'] += 1
 
-
         # Derivatives of the gradient close to 0 can cause problems because of
         # the square root, so manually calculate norm and add epsilon
         gradients_norm = torch.sqrt(torch.sum(gradients ** 2, dim=1) + 1e-12)
@@ -126,18 +123,20 @@ class Trainer:
             if self.num_steps % self.critic_iterations == 0:
                 self._generator_train_iteration(data)
 
-            if i % self.print_every == 0:
+            if i % self.print_every == 0 and len(self.losses['D']) > 0 and len(self.losses['GP']) > 0 and \
+                    len(self.losses['gradient_norm']) > 0:
                 print("Iteration {}".format(i + 1))
                 print("D: {}".format(self.losses['D'][-1]))
                 print("GP: {}".format(self.losses['GP'][-1]))
                 print("Gradient norm: {}".format(self.losses['gradient_norm'][-1]))
-                if self.num_steps > self.critic_iterations:
+                if self.num_steps > self.critic_iterations and len(self.losses['G']) > 0:
                     print("G: {}".format(self.losses['G'][-1]))
         self.loss_gp.append(self.losses['GP'][-1])
         self.loss_d.append(self.losses['D'][-1])
-        torch.save({'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
-                    'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
-                   , os.path.join(self.path2save, 'weight.pt'))
+        torch.save(
+            {'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
+             'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
+            , os.path.join(self.path2save, 'weight.pt'))
 
         with open(os.path.join(self.path2save, 'losses.pickle'), 'wb') as handle:
             pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
