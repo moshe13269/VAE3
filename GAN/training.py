@@ -15,6 +15,8 @@ class Trainer:
         self.D = discriminator
         self.D_opt = dis_optimizer
         self.losses = {'G': [], 'D': [], 'GP': [], 'gradient_norm': []}
+        self.losses_epochs = {'G': 0.0, 'D': 0.0, 'GP': 0.0, 'gradient_norm': 0.0}
+        self.losses_counter = {'G': 0, 'D': 0, 'GP': 0, 'gradient_norm': 0}
         self.num_steps = 0
         self.device = device
         self.gp_weight = gp_weight
@@ -24,6 +26,7 @@ class Trainer:
         self.loss_d = []
         self.G.to(self.device)
         self.D.to(self.device)
+        self.epoch = 0
         self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN'
 
     def _critic_train_iteration(self, data):
@@ -42,6 +45,7 @@ class Trainer:
         # Get gradient penalty
         gradient_penalty = self._gradient_penalty(data, generated_data)
         self.losses['GP'].append(gradient_penalty.data)  # data[0]##############
+        self.losses_counter['GP'] += 1
 
         # Create total loss and optimize
         self.D_opt.zero_grad()
@@ -51,7 +55,8 @@ class Trainer:
         self.D_opt.step()
 
         # Record loss
-        self.losses['D'].append(d_loss.data)  # data[0]
+        self.losses_epochs['D'] += d_loss.data # data[0]
+
 
     def _generator_train_iteration(self, data):
         """ """
@@ -69,6 +74,8 @@ class Trainer:
 
         # Record loss
         self.losses['G'].append(g_loss.data)  # data[0]##############
+        self.losses_counter['G'] += 1
+
 
     def _gradient_penalty(self, real_data, generated_data):
         batch_size = real_data.size()[0]
@@ -96,7 +103,9 @@ class Trainer:
         # Gradients have shape (batch_size, num_channels, img_width, img_height),
         # so flatten to easily take norm per example in batch
         gradients = gradients.view(batch_size, -1)
-        self.losses['gradient_norm'].append(gradients.norm(2, dim=1).mean().data)  # .data[0] #################
+        self.losses['gradient_norm'].append(gradients.norm(2, dim=1).mean().data)
+        self.losses_counter['gradient_norm'] += 1
+
 
         # Derivatives of the gradient close to 0 can cause problems because of
         # the square root, so manually calculate norm and add epsilon
@@ -134,10 +143,17 @@ class Trainer:
             pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
         print("Model had been saved")
 
+    def losses_calculation(self):
+        for keys in self.losses_epochs.keys():
+            self.losses[keys].append(self.losses_epochs[keys] / max(self.losses_counter[keys], 1.0))
+
     def train(self, data_loader, epochs, save_training_gif=True):
         for epoch in range(epochs):
+            self.epoch += 1
             print("\nEpoch {}".format(epoch + 1))
             self._train_epoch(data_loader)
+            self.losses_epochs = {'G': 0.0, 'D': 0.0, 'GP': 0.0, 'gradient_norm': 0.0}
+            self.losses_counter = {'G': 0, 'D': 0, 'GP': 0, 'gradient_norm': 0}
 
     def sample_generator(self, num_samples, vector):
         # latent_samples = Variable(self.G.module.sample_latent(num_samples))
