@@ -131,8 +131,11 @@ class Trainer:
                 print("Gradient norm: {}".format(self.losses['gradient_norm'][-1]))
                 if self.num_steps > self.critic_iterations and len(self.losses['G']) > 0:
                     print("G: {}".format(self.losses['G'][-1]))
-        self.loss_gp.append(self.losses['GP'][-1])
-        self.loss_d.append(self.losses['D'][-1])
+
+        if i % self.print_every == 0 and len(self.losses['D']) > 0 and len(self.losses['GP']) > 0 and \
+                len(self.losses['gradient_norm']) > 0:
+            self.loss_gp.append(self.losses['GP'][-1])
+            self.loss_d.append(self.losses['D'][-1])
         torch.save(
             {'epoch': len(self.losses['D']), 'D_state_dict': self.D.state_dict(), 'G_state_dict': self.G.state_dict(),
              'optimizer_state_dict_D': self.D_opt.state_dict(), 'optimizer_state_dict_G': self.G_opt.state_dict()}
