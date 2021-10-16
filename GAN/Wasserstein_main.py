@@ -21,6 +21,9 @@ generator.to(device)
 discriminator = Discriminator()
 discriminator.to(device)
 
+generator.weight_init()
+discriminator.weight_init()
+
 # Initialize optimizers
 lr = 1e-4
 betas = (.9, .99)
