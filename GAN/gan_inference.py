@@ -1,5 +1,5 @@
 import torch
-from Decoder.Discriminator import Discriminator
+# from Decoder.Discriminator import Discriminator
 from Decoder.Generator import Generator
 from utils.dataloader import Dataset
 import matplotlib.pyplot as plt
@@ -19,11 +19,12 @@ PATH = "/home/moshelaufer/PycharmProjects/VAE2/data/GAN/weight.pt"
 generator = Generator()
 generator.load_state_dict(torch.load(PATH)['G_state_dict'])
 generator.to(device)
+generator.eval()
 
 for i, data in enumerate(data_loader):
     fake = generator(data[1].to(device), torch.ones((1, 512, 4, 4)).to(device))
-    spec = data[0].squeeze().cpu().numpy()
-    fake = fake.squeeze().cpu().numpy()
+    spec = data[0].squeeze().cpu().detach().numpy()
+    fake = fake.squeeze().cpu().detach().numpy()
     plt.figure()
     f, axarr = plt.subplots(2, 1)
     axarr[0].imshow(spec)

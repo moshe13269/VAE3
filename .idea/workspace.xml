@@ -49,7 +49,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.Wasserstein_main">
+  <component name="RunManager" selected="Python.gan_inference">
     <configuration name="Discriminator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,7 +113,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dataloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gan_inference" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -121,11 +121,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GAN" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/dataloader.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GAN/gan_inference.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -158,17 +158,17 @@
     <list>
       <item itemvalue="Python.Discriminator" />
       <item itemvalue="Python.Generator" />
-      <item itemvalue="Python.dataloader" />
       <item itemvalue="Python.tester" />
       <item itemvalue="Python.Wasserstein_main" />
+      <item itemvalue="Python.gan_inference" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.gan_inference" />
         <item itemvalue="Python.Wasserstein_main" />
         <item itemvalue="Python.Discriminator" />
         <item itemvalue="Python.tester" />
         <item itemvalue="Python.Generator" />
-        <item itemvalue="Python.dataloader" />
       </list>
     </recent_temporary>
   </component>
