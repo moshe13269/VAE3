@@ -6,7 +6,7 @@ from utils.dataloader import Dataset
 from training import Trainer
 
 
-device = torch.device('cuda:1')
+device = torch.device('cuda:3')
 batch_size = 100
 
 dataset = Dataset(
