@@ -25,9 +25,10 @@ for i, data in enumerate(data_loader):
     fake = generator(data[1].to(device), torch.ones((1, 512, 4, 4)).to(device))
     spec = data[0].squeeze().cpu().detach().numpy()
     fake = fake.squeeze().cpu().detach().numpy()
-    plt.figure()
-    f, axarr = plt.subplots(2, 1)
-    axarr[0].imshow(spec)
-    axarr[1].imshow(fake)
+    a=0
+    # plt.figure()
+    # f, axarr = plt.subplots(2, 1)
+    # axarr[0].imshow(spec)
+    # axarr[1].imshow(fake)
     a = 0
 

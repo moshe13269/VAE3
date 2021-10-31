@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Decoder/inference.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAN/gan_inference.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/gan_inference.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,13 +181,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
-    </task>
-    <task id="LOCAL-00003" summary="ver0">
-      <created>1631471663334</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1631471663334</updated>
     </task>
     <task id="LOCAL-00004" summary="ver0">
       <created>1631471755569</created>
@@ -525,7 +518,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634420279644</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="ver0">
+      <created>1634759596331</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1634759596331</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -592,13 +592,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GAN/gan_inference.py</url>
-          <line>31</line>
+          <line>32</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GAN/gan_inference.py</url>
           <line>27</line>
-          <option name="timeStamp" value="50" />
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GAN/gan_inference.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
