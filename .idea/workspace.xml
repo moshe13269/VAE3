@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Decoder/Discriminator_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Decoder/Generator_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/model_Encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_Encoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dataloader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Decoder/latent_mapping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Decoder/Generator_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Generator_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/Wasserstein_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/Wasserstein_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +52,8 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.model_Encoder">
-    <configuration name="Discriminator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Generator_2">
+    <configuration name="Generator_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -67,7 +65,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Decoder/Discriminator.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Decoder/Generator_2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -118,6 +116,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="latent_mapping" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VAE2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Decoder" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Decoder/latent_mapping.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="model_Encoder" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,41 +158,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="VAE2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/tester.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.Discriminator" />
-      <item itemvalue="Python.tester" />
       <item itemvalue="Python.Wasserstein_main" />
       <item itemvalue="Python.gan_inference" />
       <item itemvalue="Python.model_Encoder" />
+      <item itemvalue="Python.Generator_2" />
+      <item itemvalue="Python.latent_mapping" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Generator_2" />
+        <item itemvalue="Python.latent_mapping" />
         <item itemvalue="Python.model_Encoder" />
         <item itemvalue="Python.gan_inference" />
         <item itemvalue="Python.Wasserstein_main" />
-        <item itemvalue="Python.Discriminator" />
-        <item itemvalue="Python.tester" />
       </list>
     </recent_temporary>
   </component>
@@ -185,13 +183,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
-    </task>
-    <task id="LOCAL-00005" summary="ver0">
-      <created>1631507256837</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1631507256837</updated>
     </task>
     <task id="LOCAL-00006" summary="ver0">
       <created>1631546891633</created>
@@ -529,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635713053847</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="ver0">
+      <created>1635715757186</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1635715757187</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -608,6 +606,11 @@
           <url>file://$PROJECT_DIR$/models/model_Encoder.py</url>
           <line>81</line>
           <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Decoder/Generator_2.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

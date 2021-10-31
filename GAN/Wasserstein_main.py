@@ -1,7 +1,7 @@
 import torch
 import torch.optim as optim
-from Decoder.Discriminator import Discriminator
-from Decoder.Generator import Generator
+from Decoder.Discriminator_2 import Discriminator as Discriminator
+from Decoder.Generator_2 import Generator as Generator
 from utils.dataloader import Dataset
 from training import Trainer
 

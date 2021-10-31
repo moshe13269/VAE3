@@ -9,7 +9,7 @@ import pickle
 
 class Trainer:
     def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer, device, gp_weight=10,
-                 critic_iterations=5, print_every=500):
+                 critic_iterations=5, print_every=100):
         self.G = generator
         self.G_opt = gen_optimizer
         self.D = discriminator
@@ -27,7 +27,7 @@ class Trainer:
         self.G.to(self.device)
         self.D.to(self.device)
         self.epoch = 0
-        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN'
+        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN_2'
 
     def _critic_train_iteration(self, data):
         """ """
@@ -161,7 +161,8 @@ class Trainer:
         # latent_samples = Variable(self.G.module.sample_latent(num_samples))
         # if self.device:
         #     latent_samples = latent_samples.to(self.device)
-        generated_data = self.G(vector.to(self.device), torch.ones((vector.shape[0], 512, 4, 4)).to(self.device))
+        # generated_data = self.G(vector.to(self.device), torch.ones((vector.shape[0], 512, 4, 4)).to(self.device))
+        generated_data = self.G(vector.to(self.device))
         return generated_data
 
     # def sample(self, num_samples):
