@@ -27,7 +27,7 @@ class Trainer:
         self.G.to(self.device)
         self.D.to(self.device)
         self.epoch = 0
-        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN/2'
+        self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN_2'
 
     def _critic_train_iteration(self, data):
         """ """
@@ -161,8 +161,8 @@ class Trainer:
         # latent_samples = Variable(self.G.module.sample_latent(num_samples))
         # if self.device:
         #     latent_samples = latent_samples.to(self.device)
-        generated_data = self.G(vector.to(self.device), torch. torch.Tensor(torch.ones((vector.shape[0], 512, 4, 4))).to(self.device))
-        # generated_data = self.G(vector.to(self.device))
+        # generated_data = self.G(vector.to(self.device), torch.ones((vector.shape[0], 512, 4, 4)).to(self.device))
+        generated_data = self.G(vector.to(self.device))
         return generated_data
 
     # def sample(self, num_samples):

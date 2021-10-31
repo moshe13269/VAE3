@@ -56,7 +56,7 @@ def convert_label4gan(label):
     one_hot_label[10] = label[3]
     one_hot_label[11] = label[4]
     one_hot_label[12] = label[5]
-    return torch.Tensor(one_hot_label, requires_grad=True)
+    return torch.Tensor(one_hot_label).unsqueeze(1).unsqueeze(2)
 
 
 

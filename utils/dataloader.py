@@ -62,7 +62,7 @@ class Dataset(Dataset):
         label = self.csv[index:index+1, 1:]  # list(self.csv_df.loc[index])[1:]
         label = label.squeeze()
         # print(label)
-        if self.train and self.train:
+        if self.gan and self.train:
             label = convert_label4gan(label)
         elif self.train:
             label = convert_label4input(label)

@@ -1,17 +1,17 @@
 import torch
 import torch.optim as optim
-from Decoder.Discriminator import Discriminator as Discriminator
-from Decoder.Generator import Generator as Generator
+from Decoder.Discriminator_2 import Discriminator as Discriminator
+from Decoder.Generator_2 import Generator as Generator
 from utils.dataloader import Dataset
-from training import Trainer
+from training_2 import Trainer
 
 
-device = torch.device('cuda:2')
+device = torch.device('cuda:3')
 batch_size = 100
 
 dataset = Dataset(
     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
-    "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv", gan=False)
+    "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv")
 data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
                                           pin_memory=True, drop_last=True)
 
@@ -32,7 +32,7 @@ D_optimizer = optim.Adam(discriminator.parameters(), lr=lr, betas=betas)
 
 # Train model
 epochs = 200
-trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, torch.device('cuda:2'))
+trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, torch.device('cuda:3'))
 
 trainer.train(data_loader, epochs)
 
