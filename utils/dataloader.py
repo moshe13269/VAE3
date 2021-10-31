@@ -8,7 +8,7 @@ from scipy import signal
 from scipy.io import wavfile
 import pickle
 import pandas as pd
-from utils.util import convert_label4input
+from utils.util import convert_label4input, convert_label4gan
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
 import numpy
@@ -21,7 +21,8 @@ def load_obj(name):
 
 
 class Dataset(Dataset):
-    def __init__(self, path2data, path2csv, train=1):
+    def __init__(self, path2data, path2csv, gan=True, train=1):
+        self.gan = gan
         self.train = train
         self.path2data = path2data
         self.path2csv = path2csv  # pd.read_csv(path2csv, skipinitialspace=True)
@@ -61,7 +62,9 @@ class Dataset(Dataset):
         label = self.csv[index:index+1, 1:]  # list(self.csv_df.loc[index])[1:]
         label = label.squeeze()
         # print(label)
-        if self.train:
+        if self.train and self.train:
+            label = convert_label4gan(label)
+        elif self.train:
             label = convert_label4input(label)
         return Zxx, label
 

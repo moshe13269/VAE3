@@ -45,3 +45,18 @@ def convert_label4output(label):
     return new_label
 
 
+def convert_label4gan(label):
+    one_hot_label = [0]*13
+    one_hot_label[int(label[0] * 4)] = 1
+    one_hot_label[int(label[1] * 4) + 4] = 1
+    if label[2] == 0 or label[2] == 0.0:
+        one_hot_label[8] = 1
+    else:
+        one_hot_label[9] = 1
+    one_hot_label[10] = label[3]
+    one_hot_label[11] = label[4]
+    one_hot_label[12] = label[5]
+    return torch.Tensor(one_hot_label, requires_grad=True)
+
+
+

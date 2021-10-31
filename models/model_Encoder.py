@@ -88,7 +88,7 @@ class Encoder(nn.Module):
 # a.load_state_dict(torch.load(p)['model_state_dict'])
 # d = torch.rand(1,1,512,512).float()
 
-# m = VAE().float()
+# m = Encoder().float()
 # d = torch.rand(3,1,256,256).float()
 # x = m(d)
 # print(x[0].shape, x[1].shape)
