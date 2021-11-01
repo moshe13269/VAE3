@@ -30,7 +30,6 @@ class Trainer:
         self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN/2'
 
     def _critic_train_iteration(self, data):
-        """ """
         # Get generated data
         batch_size = data[0].size()[0]
         generated_data = self.sample_generator(batch_size, data[1])
