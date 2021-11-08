@@ -1,8 +1,7 @@
-import numpy as np
 import torch
-from torchvision.utils import make_grid
 from torch.autograd import Variable
 from torch.autograd import grad as torch_grad
+import torch.optim as optim
 import os
 import pickle
 
@@ -10,22 +9,22 @@ import pickle
 class Trainer:
     def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer, device, gp_weight=10,
                  critic_iterations=5, print_every=100):
+        self.device = device
         self.G = generator
-        self.G_opt = gen_optimizer
+        self.G.to(self.device)
+        self.G_opt = optim.Adam(self.G.parameters(), lr=1e-4, betas=(.9, .99))
         self.D = discriminator
-        self.D_opt = dis_optimizer
+        self.D.to(self.device)
+        self.D_opt = optim.Adam(self.D.parameters(), lr=1e-4, betas=(.9, .99))
         self.losses = {'G': [], 'D': [], 'GP': [], 'gradient_norm': []}
         self.losses_epochs = {'G': 0.0, 'D': 0.0, 'GP': 0.0, 'gradient_norm': 0.0}
         self.losses_counter = {'G': 0, 'D': 0, 'GP': 0, 'gradient_norm': 0}
         self.num_steps = 0
-        self.device = device
         self.gp_weight = gp_weight
         self.critic_iterations = critic_iterations
         self.print_every = print_every
         self.loss_gp = []
         self.loss_d = []
-        self.G.to(self.device)
-        self.D.to(self.device)
         self.epoch = 0
         self.path2save = '/home/moshelaufer/PycharmProjects/VAE2/data/GAN_2'
 
@@ -36,11 +35,11 @@ class Trainer:
         generated_data = self.sample_generator(batch_size, data[1])
 
         # Calculate probabilities on real and generated data
-        data = Variable(data[0])
+        # data = Variable(data[0]) ##########
         if self.device:
-            data = data.to(self.device)
-        d_real = self.D(data)
-        d_generated = self.D(generated_data)
+            data = data[0].to(self.device)
+        d_real = self.D(data, self.epoch)
+        d_generated = self.D(generated_data, self.epoch)
 
         # Get gradient penalty
         gradient_penalty = self._gradient_penalty(data, generated_data)
@@ -66,7 +65,7 @@ class Trainer:
         generated_data = self.sample_generator(batch_size, data[1])
 
         # Calculate loss and optimize
-        d_generated = self.D(generated_data)
+        d_generated = self.D(generated_data, self.epoch)
         g_loss = - d_generated.mean()
         g_loss.backward()
         self.G_opt.step()
@@ -89,7 +88,7 @@ class Trainer:
             interpolated = interpolated.to(self.device)
 
         # Calculate probability of interpolated examples
-        prob_interpolated = self.D(interpolated)
+        prob_interpolated = self.D(interpolated, self.epoch)
 
         # Calculate gradients of probabilities with respect to examples
         gradients = torch_grad(outputs=prob_interpolated, inputs=interpolated,
@@ -162,10 +161,6 @@ class Trainer:
         # if self.device:
         #     latent_samples = latent_samples.to(self.device)
         # generated_data = self.G(vector.to(self.device), torch.ones((vector.shape[0], 512, 4, 4)).to(self.device))
-        generated_data = self.G(vector.to(self.device))
+        generated_data = self.G(vector.to(self.device), self.epoch)
         return generated_data
 
-    # def sample(self, num_samples):
-    #     generated_data = self.sample_generator(num_samples)
-    #     # Remove color channel
-    #     return generated_data.data.cpu().numpy()[:, 0, :, :]

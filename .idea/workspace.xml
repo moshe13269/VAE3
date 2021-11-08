@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Decoder/Discriminator_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Discriminator_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Decoder/Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Decoder/Generator_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Generator_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAN/stylegan_0_gan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/stylegan_0_gan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAN/vec2spec_gan.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/vec2spec_gan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/Wasserstein_main_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/Wasserstein_main_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/training_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training_2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.Discriminator_2">
+  <component name="RunManager" selected="Python.Wasserstein_main_2">
     <configuration name="Discriminator_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -169,11 +167,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Wasserstein_main_2" />
         <item itemvalue="Python.Discriminator_2" />
         <item itemvalue="Python.Generator_2" />
         <item itemvalue="Python.vec2spec_gan" />
         <item itemvalue="Python.Generator" />
-        <item itemvalue="Python.Wasserstein_main_2" />
       </list>
     </recent_temporary>
   </component>
@@ -185,13 +183,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
-    </task>
-    <task id="LOCAL-00008" summary="ver0">
-      <created>1631548950705</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1631548950705</updated>
     </task>
     <task id="LOCAL-00009" summary="ver0">
       <created>1631554506333</created>
@@ -529,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636406616301</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="ver0">
+      <created>1636409276484</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1636409276485</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -603,11 +601,6 @@
           <url>file://$PROJECT_DIR$/models/model_Encoder.py</url>
           <line>81</line>
           <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GAN/training_2.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GAN/training.py</url>

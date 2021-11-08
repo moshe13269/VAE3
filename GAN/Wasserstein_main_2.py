@@ -6,7 +6,7 @@ from utils.dataloader import Dataset
 from training_2 import Trainer
 
 
-device = torch.device('cuda:3')
+device = torch.device('cuda:2')
 batch_size = 100
 
 dataset = Dataset(
@@ -31,8 +31,8 @@ G_optimizer = optim.Adam(generator.parameters(), lr=lr, betas=betas)
 D_optimizer = optim.Adam(discriminator.parameters(), lr=lr, betas=betas)
 
 # Train model
-epochs = 200
-trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, torch.device('cuda:3'))
+epochs = 100
+trainer = Trainer(generator, discriminator, G_optimizer, D_optimizer, torch.device('cuda:2'))
 
 trainer.train(data_loader, epochs)
 
