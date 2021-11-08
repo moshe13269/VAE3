@@ -128,7 +128,7 @@ class Generator(nn.Module):
 
 
 # d = Generator()
-# d.weight_init()
+# # d.weight_init()
 # s = torch.rand(3, 512, 4, 4).float()
 # print(d(s).shape)
 

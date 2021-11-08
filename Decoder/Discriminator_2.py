@@ -50,41 +50,59 @@ class Discriminator(nn.Module):
         for m in self._modules:
             normal_init(self._modules[m])
 
-    def forward(self, x):
+    def forward(self, x, epoch):
         # x0 = self.down(x)
         x = F.leaky_relu(self.bnm2(self.conv1(x)))
         x0 = x#self.down(x)
-        x = F.leaky_relu(self.bnm2(self.conv2(x))+x0)
+        if epoch < 10:
+            x = F.leaky_relu(self.bnm2(self.conv2(x))+x0)
+        else:
+            x = F.leaky_relu(self.bnm2(self.conv2(x)))
         x = self.max_pool(x)
 
         # x1 = self.down(x)
         x = F.leaky_relu(self.bnm4(self.conv3(x)))
         x1 = x#self.down(x)
-        x = F.leaky_relu(self.bnm4(self.conv4(x)) + x1)
+        if epoch < 20:
+            x = F.leaky_relu(self.bnm4(self.conv4(x)) + x1)
+        else:
+            x = F.leaky_relu(self.bnm4(self.conv4(x)))
         x = self.max_pool(x) #+ x1
 
         # x2 = self.down(x)
         x = F.leaky_relu(self.bnm6(self.conv5(x)))
         x2 = x#self.down(x)
-        x = F.leaky_relu(self.bnm6(self.conv6(x)) + x2)
+        if epoch < 30:
+            x = F.leaky_relu(self.bnm6(self.conv6(x)) + x2)
+        else:
+            x = F.leaky_relu(self.bnm6(self.conv6(x)))
         x = self.max_pool(x) #+ x2
 
         # x3 = self.down(x)
         x = F.leaky_relu(self.bnm8(self.conv7(x)))
         x3 = x# self.down(x)
-        x = F.leaky_relu(self.bnm8(self.conv8(x)) + x3)
+        if epoch < 40:
+            x = F.leaky_relu(self.bnm8(self.conv8(x)) + x3)
+        else:
+            x = F.leaky_relu(self.bnm8(self.conv8(x)))
         x = self.max_pool(x) #+ x3
 
         # x4 = self.down(x)
         x = F.leaky_relu(self.bnm10(self.conv9(x)))
         x4 = x# self.down(x)
-        x = F.leaky_relu(self.bnm10(self.conv10(x)) + x4)
+        if epoch < 50:
+            x = F.leaky_relu(self.bnm10(self.conv10(x)) + x4)
+        else:
+            x = F.leaky_relu(self.bnm10(self.conv10(x)))
         x = self.max_pool(x) #+ x4
 
         # x5 = self.down(x)
         x = F.leaky_relu(self.bnm12(self.conv11(x)))
         x5 = x#self.down(x)
-        x = F.leaky_relu(self.bnm12(self.conv12(x)) + x5)
+        if epoch < 60:
+            x = F.leaky_relu(self.bnm12(self.conv12(x)) + x5)
+        else:
+            x = F.leaky_relu(self.bnm12(self.conv12(x)))
         x = self.max_pool(x) #+ x5
 
         # option: add residual function
@@ -95,10 +113,10 @@ class Discriminator(nn.Module):
         return x
 
 
-# d = Discriminator()
+d = Discriminator()
 # d.weight_init()
-# s = torch.rand(3,1,256,256).float()
-# print(d(s))
+s = torch.rand(3,1,256,256).float()
+print(d(s, 500))
 # print(s)
 # rr = nn.Upsample(scale_factor=0.5, mode='bilinear')
 # print(rr(s))

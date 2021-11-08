@@ -3,6 +3,7 @@ import torch
 from torch.nn import functional as F
 # from Decoder.latent_mapping import Latent as Latent
 
+
 def normal_init(m):
     if isinstance(m, nn.ConvTranspose2d) or isinstance(m, nn.Conv2d):
         # torch.nn.init.normal_(m,0.0, 1)
@@ -79,7 +80,7 @@ class Generator(nn.Module):
         elif x.shape[2] == 256:
             return F.relu(self.conv6_to_spec(x))
 
-    def forward(self, x):
+    def forward(self, x, epoch):
         x = F.relu(self.latent_bnm1(self.latent_conv1(x)))
         x = F.relu(self.latent_bnm1(self.latent_conv2(x)))
         x = F.relu(self.latent_bnm4(self.latent_conv3(x)))
@@ -95,52 +96,65 @@ class Generator(nn.Module):
 
         x = F.relu(self.bnm2(self.conv3(x)))
         x = F.relu(self.bnm4(self.conv4(x)))
-        # x = x * param[:, 1].unsqueeze(1).unsqueeze(2).unsqueeze(3)
         spec1 = x
         spec1 = self.to_spec(spec1)
-        spec1 = self.ups1(spec1+spec0)
+        if epoch < 10:
+            spec1 = self.ups1(spec1+spec0)
+        else:
+            spec1 = self.ups1(spec1)
         x = self.ups1(x)
 
         x = F.relu(self.bnm4(self.conv5(x)))
         x = F.relu(self.bnm6(self.conv6(x)))
-        # x = x * param[:, 2].unsqueeze(1).unsqueeze(2).unsqueeze(3)
+
         spec2 = x
         spec2 = self.to_spec(spec2)
-        spec2 = self.ups1(spec2 + spec1)
+        if epoch < 20:
+            spec2 = self.ups1(spec2 + spec1)
+        else:
+            spec2 = self.ups1(spec2)
         x = self.ups1(x)
 
         x = F.relu(self.bnm6(self.conv7(x)))
         x = F.relu(self.bnm8(self.conv8(x)))
-        # x = x * param[:, 3].unsqueeze(1).unsqueeze(2).unsqueeze(3)
+
         spec3 = x
-        spec3 = self.to_spec(spec3 + spec2)
+        if epoch < 30:
+            spec3 = self.to_spec(spec3 + spec2)
+        else:
+            spec3 = self.to_spec(spec3)
         spec3 = self.ups1(spec3)
         x = self.ups1(x)
 
         x = F.relu(self.bnm8(self.conv9(x)))
         x = F.relu(self.bnm10(self.conv10(x)))
-        # x = x * param[:, 4].unsqueeze(1).unsqueeze(2).unsqueeze(3)
+
         spec4 = x
-        spec4 = self.to_spec(spec4 + spec3)
+        if epoch < 40:
+            spec4 = self.to_spec(spec4 + spec3)
+        else:
+            spec4 = self.to_spec(spec4)
         spec4 = self.ups1(spec4)
         x = self.ups1(x)
 
         x = F.relu(self.bnm10(self.conv11(x)))
         x = F.relu(self.bnm12(self.conv12(x)))
-        # x = x * param[:, 5].unsqueeze(1).unsqueeze(2).unsqueeze(3)
+
         spec5 = x
-        spec5 = self.to_spec(spec5 + spec4)
-        spec5 = self.ups1(spec5)
+        if epoch < 50:
+            spec5 = self.to_spec(spec5 + spec4)
+            spec5 = self.ups1(spec5)
         x = self.ups1(x)
 
         x = F.relu(self.conv13(x))
         x = torch.tanh(self.fc(x))
-        x = x + spec5
+        if epoch < 50:
+            return x + spec5
         return x
 
 
-# d = Generator()
+d = Generator()
 # # d.weight_init()
-# s = torch.rand(3, 13, 1, 1).float()
-# print(d(s).shape)
+s = torch.rand(3, 13, 1, 1).float()
+print(d(s, 55).shape)
 

@@ -10,10 +10,9 @@ batch_size = 1
 dataset = Dataset(
     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv")
-data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
-                                          pin_memory=True, drop_last=True)
+data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
 
-PATH = "/home/moshelaufer/PycharmProjects/VAE2/data/GAN/weight.pt"
+PATH = "/home/moshelaufer/PycharmProjects/VAE2/data/GAN_2/weight.pt"
 
 generator = Generator()
 generator.load_state_dict(torch.load(PATH)['G_state_dict'])
@@ -21,7 +20,8 @@ generator.to(device)
 generator.eval()
 
 for i, data in enumerate(data_loader):
-    fake = generator(data[1].to(device), torch.ones((1, 512, 4, 4)).to(device))
+    vec = data[1].to(device)
+    fake = generator(vec)#, torch.ones((1, 512, 4, 4)).to(device))
     spec = data[0].squeeze().cpu().detach().numpy()
     fake = fake.squeeze().cpu().detach().numpy()
     a=0
@@ -30,4 +30,3 @@ for i, data in enumerate(data_loader):
     # axarr[0].imshow(spec)
     # axarr[1].imshow(fake)
     a = 0
-
