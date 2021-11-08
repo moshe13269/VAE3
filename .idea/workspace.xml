@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="ver0">
+      <change afterPath="$PROJECT_DIR$/GAN/stylegan_0_gan.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GAN/vec2spec_gan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAN/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +51,7 @@
     <option name="mySupportQtDebugging" value="false" />
     <option name="myPyQtBackend" value="pyside2" />
   </component>
-  <component name="RunManager" selected="Python.Wasserstein_main_2">
+  <component name="RunManager" selected="Python.vec2spec_gan">
     <configuration name="Generator_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,7 +136,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="model_Encoder" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="vec2spec_gan" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -143,11 +144,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GAN" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/model_Encoder.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GAN/vec2spec_gan.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -157,19 +158,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.model_Encoder" />
       <item itemvalue="Python.Generator_2" />
       <item itemvalue="Python.latent_mapping" />
       <item itemvalue="Python.Wasserstein_main_2" />
       <item itemvalue="Python.Wasserstein_main" />
+      <item itemvalue="Python.vec2spec_gan" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.vec2spec_gan" />
         <item itemvalue="Python.Wasserstein_main_2" />
         <item itemvalue="Python.Wasserstein_main" />
         <item itemvalue="Python.Generator_2" />
         <item itemvalue="Python.latent_mapping" />
-        <item itemvalue="Python.model_Encoder" />
       </list>
     </recent_temporary>
   </component>
@@ -614,6 +615,11 @@
           <url>file://$PROJECT_DIR$/GAN/training.py</url>
           <line>124</line>
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GAN/vec2spec_gan.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
