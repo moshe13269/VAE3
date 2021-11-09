@@ -27,8 +27,8 @@ discriminator.weight_init()
 # Initialize optimizers
 lr = 1e-4
 betas = (.9, .99)
-G_optimizer = optim.Adam(generator.parameters(), lr=lr, betas=betas)
-D_optimizer = optim.Adam(discriminator.parameters(), lr=lr, betas=betas)
+G_optimizer = optim.Adam(generator.parameters(), lr=lr)
+D_optimizer = optim.Adam(discriminator.parameters(), lr=lr)
 
 # Train model
 epochs = 100

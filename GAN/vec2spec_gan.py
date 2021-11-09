@@ -21,7 +21,7 @@ generator.eval()
 
 for i, data in enumerate(data_loader):
     vec = data[1].to(device)
-    fake = generator(vec)
+    fake = generator(vec, epoch=100)
     spec = data[0].squeeze().cpu().detach().numpy()
     fake = fake.squeeze().cpu().detach().numpy()
     a=0

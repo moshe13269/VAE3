@@ -147,9 +147,11 @@ class Generator(nn.Module):
         x = self.ups1(x)
 
         x = F.relu(self.conv13(x))
-        x = torch.tanh(self.fc(x))
+
         if epoch < 50:
+            x = torch.tanh(self.fc(x))
             return x + spec5
+        x = torch.tanh(self.fc(x))
         return x
 
 
