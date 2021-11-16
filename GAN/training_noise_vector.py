@@ -111,6 +111,7 @@ class Trainer:
             print("GP: {}".format(self.losses_epochs['GP'][0] / self.losses_epochs['GP'][1]))
             print(
                 "Gradient norm: {}".format(self.losses_epochs['gradient_norm'][0] / self.losses_epochs['gradient_norm'][1]))
+            print('\n')
         except ZeroDivisionError:
             pass
 

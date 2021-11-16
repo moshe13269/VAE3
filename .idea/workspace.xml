@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b89bd26-3861-4c69-a7cb-f2c53bb38129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Decoder/Discriminator_noise_vector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAN/Wasserstein_noise_vector_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Decoder/Generator_noise_vector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decoder/Generator_noise_vector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAN/training_nise_vector.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training_noise_vector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dataloader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAN/training_noise_vector.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAN/training_noise_vector.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,13 +183,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
-    </task>
-    <task id="LOCAL-00012" summary="ver0">
-      <created>1632257948792</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1632257948792</updated>
     </task>
     <task id="LOCAL-00013" summary="ver0">
       <created>1632258235615</created>
@@ -533,12 +520,20 @@
       <option name="project" value="LOCAL" />
       <updated>1637078362530</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="noise_vector - GAN">
+      <created>1637082461487</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1637082461487</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ver0" />
-    <option name="LAST_COMMIT_MESSAGE" value="ver0" />
+    <MESSAGE value="noise_vector - GAN" />
+    <option name="LAST_COMMIT_MESSAGE" value="noise_vector - GAN" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
