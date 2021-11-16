@@ -15,13 +15,13 @@ data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffl
 PATH = "/home/moshelaufer/PycharmProjects/VAE2/data/GAN_2/weight.pt"
 
 generator = Generator()
-generator.load_state_dict(torch.load(PATH)['G_state_dict'])
+# generator.load_state_dict(torch.load(PATH)['G_state_dict'])
 generator.to(device)
 generator.eval()
 
 for i, data in enumerate(data_loader):
     vec = data[1].to(device)
-    fake = generator(vec, epoch=100)
+    fake = generator(vec, epoch=15)
     spec = data[0].squeeze().cpu().detach().numpy()
     fake = fake.squeeze().cpu().detach().numpy()
     a=0
