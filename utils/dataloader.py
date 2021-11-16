@@ -64,6 +64,7 @@ class Dataset(Dataset):
         # print(label)
         if self.gan and self.train:
             label = convert_label4gan(label)
+
         elif self.train:
             label = convert_label4input(label)
         return Zxx, label

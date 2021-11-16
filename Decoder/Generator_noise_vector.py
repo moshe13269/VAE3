@@ -113,9 +113,9 @@ class Generator(nn.Module):
         return x
 
 
-d = Generator()
-s = torch.normal(torch.zeros((3, 512, 1, 1)), 0.1)
-# s = torch.rand(3, 512, 1, 1).float()
-out = d(s, 55)
-print(out.shape)
+# d = Generator()
+# s = torch.normal(torch.zeros((3, 512, 1, 1)), 0.1)
+# # s = torch.rand(3, 512, 1, 1).float()
+# out = d(s, 55)
+# print(out.shape)
 
