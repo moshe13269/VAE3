@@ -77,8 +77,8 @@ class Encoder(nn.Module):
         x = self.max_pool(x)
 
         x = torch.flatten(x, 1)
-        x = F.relu(self.fc1(x))  # self.fc1(x.view(x.shape[0], -1))
-        x = F.relu(self.fc2(x))
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
         return x
 
 # a = Encoder()
@@ -93,3 +93,10 @@ class Encoder(nn.Module):
 # x = m(d)
 # print(x[0].shape, x[1].shape)
 # print(x[0].shape == d.shape)
+a = F.softmax(torch.rand((10)))
+a =torch.randn(1, 10, requires_grad=True)
+loss = nn.CrossEntropyLoss()
+f = torch.empty(1, dtype=torch.long).random_(1)
+print(loss(a,f))
+print(a)
+print(torch.sum(a))

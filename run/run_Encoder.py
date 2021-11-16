@@ -5,11 +5,12 @@ import torch.optim as optim
 from models.model_Encoder import Encoder
 from utils.dataloader import Dataset
 import time
+from torch.nn import functional as F
 
 
 def main():
     torch.cuda.empty_cache()
-    file = open("/home/moshelaufer/PycharmProjects/VAE/data_normalized/process_state_encoder3.txt", "a")
+    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/encoder/process_state_encoder.txt", "a")
     device = torch.device('cuda:1')
     model = Encoder()
     path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/encoder/model_encoder2.pt"
@@ -60,7 +61,7 @@ def main():
             loss = ce_criterion(vector[:, :4], label[:, :1].squeeze().long()) + \
                    ce_criterion(vector[:, 4:8], label[:, 1:2].squeeze().long()) + \
                    ce_criterion(vector[:, 8:10], label[:, 2:3].squeeze().long()) + \
-                   mse_criterion(vector[:, 10:], label[:, 3:])
+                   mse_criterion(F.relu(vector[:, 10:], label[:, 3:]))
 
             loss.backward()
             model_optimizer.step()
