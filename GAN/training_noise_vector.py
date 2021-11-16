@@ -135,7 +135,8 @@ class Trainer:
                                             self.losses_epochs['gradient_norm'][1])
 
     def _train_epoch(self, data_loader):
-        start = timeit.timeit()
+        # start = timeit.timeit()
+        start = timeit.default_timer()
         for i, data in enumerate(data_loader):
             self.num_steps += 1
             self._critic_train_iteration(data)
@@ -154,7 +155,8 @@ class Trainer:
         with open(os.path.join(self.path2save, 'losses.pickle'), 'wb') as handle:
             pickle.dump(self.losses, handle, protocol=pickle.HIGHEST_PROTOCOL)
         print("Model had been saved\n")
-        end = timeit.timeit()
+        # end = timeit.timeit()
+        end = timeit.default_timer()
         print('time for epoch: {}'.format(end - start))
         self.file.write('time for epoch: {}\n\n'.format(end - start))
 

@@ -20,27 +20,27 @@ class Discriminator(nn.Module):
 
         self.conv1 = nn.Conv2d(1, 16, 4, padding=1)
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1)
-        self.bnm2 = nn.BatchNorm2d(num_features=16, momentum=0.1)
+        self.bnm2 = nn.BatchNorm2d(num_features=16, momentum=0.7)
 
         self.conv3 = nn.Conv2d(16, 32, 3, padding=1)
         self.conv4 = nn.Conv2d(32, 32, 3, padding=1)
-        self.bnm4 = nn.BatchNorm2d(num_features=32, momentum=0.1)
+        self.bnm4 = nn.BatchNorm2d(num_features=32, momentum=0.7)
 
         self.conv5 = nn.Conv2d(32, 64, 3, padding=1)
         self.conv6 = nn.Conv2d(64, 64, 3, padding=1)
-        self.bnm6 = nn.BatchNorm2d(num_features=64, momentum=0.1)
+        self.bnm6 = nn.BatchNorm2d(num_features=64, momentum=0.7)
 
         self.conv7 = nn.Conv2d(64, 128, 3, padding=1)
         self.conv8 = nn.Conv2d(128, 128, 3, padding=1)
-        self.bnm8 = nn.BatchNorm2d(num_features=128, momentum=0.1)
+        self.bnm8 = nn.BatchNorm2d(num_features=128, momentum=0.7)
 
         self.conv9 = nn.Conv2d(128, 256, 3, padding=1)
         self.conv10 = nn.Conv2d(256, 256, 3, padding=1)
-        self.bnm10 = nn.BatchNorm2d(num_features=256, momentum=0.1)
+        self.bnm10 = nn.BatchNorm2d(num_features=256, momentum=0.7)
 
         self.conv11 = nn.Conv2d(256, 512, 3, padding=1)
         self.conv12 = nn.Conv2d(512, 512, 3, padding=1)
-        self.bnm12 = nn.BatchNorm2d(num_features=512, momentum=0.1)
+        self.bnm12 = nn.BatchNorm2d(num_features=512, momentum=0.7)
 
         self.fc1 = nn.Linear(4608, 658)
         self.fc2 = nn.Linear(658, 13)
