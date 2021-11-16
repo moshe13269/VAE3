@@ -10,7 +10,7 @@ import timeit
 
 class Trainer:
     def __init__(self, generator, discriminator, gen_optimizer, dis_optimizer, device, gp_weight=10,
-                 critic_iterations=5, print_every=100):
+                 critic_iterations=5, print_every=150):
         self.device = device
         self.G = generator
         self.G.to(self.device)

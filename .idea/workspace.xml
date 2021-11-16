@@ -116,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="training_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="training_noise_vector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VAE2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -128,7 +128,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GAN/training_2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GAN/training_noise_vector.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,17 +161,17 @@
     <list>
       <item itemvalue="Python.Wasserstein_main_2" />
       <item itemvalue="Python.vec2spec_gan" />
-      <item itemvalue="Python.training_2" />
       <item itemvalue="Python.Generator_noise_vector" />
       <item itemvalue="Python.Wasserstein_noise_vector_main" />
+      <item itemvalue="Python.training_noise_vector" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Wasserstein_noise_vector_main" />
+        <item itemvalue="Python.training_noise_vector" />
         <item itemvalue="Python.Wasserstein_main_2" />
         <item itemvalue="Python.Generator_noise_vector" />
         <item itemvalue="Python.vec2spec_gan" />
-        <item itemvalue="Python.training_2" />
       </list>
     </recent_temporary>
   </component>

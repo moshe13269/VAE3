@@ -6,7 +6,7 @@ from utils.dataloader import Dataset
 from training_noise_vector import Trainer
 
 
-batch_size = 100
+batch_size = 150
 
 dataset = Dataset(
     "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
