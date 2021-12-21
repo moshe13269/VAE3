@@ -89,6 +89,7 @@ class VAE(nn.Module):
         x = self.bnm256(self.relu(self.conv13(x)))
 
         """Decoder"""
+        x = torch.unsqueeze(x.sum(axis=-1), axis=-1) * x
         x = self.bnm256(self.lrelu(self.conv22(x + noise)))#+ layer5))
         x = self.bnm256(self.lrelu(self.conv23(x)))
         x = self.ups1(x)
