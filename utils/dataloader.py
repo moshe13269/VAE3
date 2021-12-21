@@ -21,8 +21,8 @@ def load_obj(name):
 
 
 class Dataset(Dataset):
-    def __init__(self, path2data, path2csv, gan=True, train=1):
-        self.gan = gan
+    def __init__(self, path2data, path2csv, model_type='vae', train=1):
+        self.model_type = model_type
         self.train = train
         self.path2data = path2data
         self.path2csv = path2csv  # pd.read_csv(path2csv, skipinitialspace=True)
@@ -57,11 +57,16 @@ class Dataset(Dataset):
         z_min = Zxx.min()
         Zxx = (((Zxx - z_min) / (Zxx.max() - z_min)) * 2) - 1
         Zxx = Zxx.unsqueeze(0)
+        # Zxx = Zxx/Zxx.sum() # for probability
         # Zxx = librosa.amplitude_to_db(Zxx,  amin=1e-05) #ref=np.max,
         # Zxx = ((Zxx - Zxx.mean()) / Zxx.std())
         label = self.csv[index:index+1, 1:]  # list(self.csv_df.loc[index])[1:]
         label = label.squeeze()
         # print(label)
+        if self.model_type == 'vae':
+            return Zxx, torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
+
+        # need to edit
         if self.gan and self.train:
             label = convert_label4gan(label)
 
