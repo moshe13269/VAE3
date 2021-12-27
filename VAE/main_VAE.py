@@ -15,10 +15,10 @@ def main():
     model = VAE()
     path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder2.pt"
 
-    checkpoint = torch.load(path2model)
-    model.load_state_dict(checkpoint['model_state_dict'])
+    # checkpoint = torch.load(path2model)
+    # model.load_state_dict(checkpoint['model_state_dict'])
     model.to(device)
-    # model.weight_init()
+    model.weight_init()
 
     model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
@@ -30,7 +30,7 @@ def main():
 
     print('start epoch')
     file.write('start epoch\n')
-    batch_size = 450
+    batch_size = 256
 
     for epoch in range(n_epochs):
         dataset = Dataset(
@@ -51,11 +51,11 @@ def main():
                 print("sum samples = {} ".format(batch_num * batch_size))
             spec = data[0].float()
             spec = spec.to(device)
-            noise = noise.to(device)
+            noise = torch.normal(mean=torch.zeros(spec.shape[0], 256, 8, 8)).to(device).requires_grad_(True)
             model_optimizer.zero_grad()
-            specc_reconstructed = model(spec, noise)
+            specc_reconstructed = model(spec, noise)+10**-10
 
-            loss = F.kl_div(specc_reconstructed.log(), spec, None, None, 'sum')
+            loss = mse_criterion(specc_reconstructed, spec)
 
             counter += 1
             loss.backward()
@@ -90,7 +90,7 @@ def main():
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
-        elif min(loss_tot[:len(loss_tot) - 2]) >= loss_tot[len(loss_tot) - 1]:
+        elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
             path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)

@@ -114,9 +114,9 @@ class VAE(nn.Module):
         x = torch.tanh(self.conv35(x))
         return x
 
-a = VAE()
-m = VAE().float()
-d = torch.rand(10,1,256,256).float()
-f = torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
-x = m(d, f)
-print(x.shape)
+# a = VAE()
+# m = VAE().float()
+# d = torch.rand(10,1,256,256).float()
+# f = torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
+# x = m(d, f)
+# print(x.shape)
