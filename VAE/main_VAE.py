@@ -10,15 +10,15 @@ from torch.nn import functional as F
 
 def main():
     torch.cuda.empty_cache()
-    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/process_state_encoder.txt", "a")
+    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/process_state_encoder_2.txt", "a")
     device = torch.device('cuda:1')
     model = VAE()
-    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder2.pt"
+    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3.pt"
 
-    # checkpoint = torch.load(path2model)
-    # model.load_state_dict(checkpoint['model_state_dict'])
+    checkpoint = torch.load(path2model)
+    model.load_state_dict(checkpoint['model_state_dict'])
     model.to(device)
-    model.weight_init()
+    # model.weight_init()
 
     model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
@@ -80,18 +80,18 @@ def main():
         print('\n')
         print("Loss train = {}, epoch = {}, batch_size = {} wl".format(loss_tot, epoch, batch_size))
 
-        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/loss_arr_encoder3.npy"
+        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/loss_arr_encoder3_2.npy"
         np.save(outfile_epoch, np.asarray(loss_tot))
 
 
         # need to edit
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3_2.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/model_encoder3_2.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
