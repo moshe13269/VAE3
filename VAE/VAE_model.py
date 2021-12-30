@@ -1,6 +1,5 @@
 import torch.nn as nn
 import torch
-# from torch.nn import functional as F
 
 
 def normal_init(m):
@@ -14,6 +13,8 @@ class VAE(nn.Module):
         super(VAE, self).__init__()
 
         self.ups1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        self.lrelu = nn.LeakyReLU(0.2)
+        self.relu = nn.ReLU()
 
         self.conv1 = nn.Conv2d(1, 16, 4, padding=1)
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1)
@@ -44,8 +45,8 @@ class VAE(nn.Module):
 
 
         # decoder
-        self.conv20 = nn.Conv2d(256, 512, 3, padding=1)
-        self.conv21 = nn.Conv2d(512, 512, 3, padding=1)
+        self.conv20 = nn.Conv2d(512, 512, 3, padding=1)
+        self.conv21 = nn.Conv2d(512, 256, 3, padding=1)
 
         self.conv22 = nn.ConvTranspose2d(256, 256, 3, padding=1)
         self.conv23 = nn.ConvTranspose2d(256, 256, 3, padding=1)
@@ -65,9 +66,6 @@ class VAE(nn.Module):
         self.conv33 = nn.ConvTranspose2d(32, 16, 3, padding=1)
         self.conv34 = nn.ConvTranspose2d(16, 16, 3, padding=1)
         self.conv35 = nn.ConvTranspose2d(16, 1, 3, padding=0)
-
-        self.lrelu = nn.LeakyReLU(0.2)
-        self.relu = nn.ReLU()
 
     def weight_init(self):
         for m in self._modules:
@@ -96,25 +94,31 @@ class VAE(nn.Module):
         x = self.bnm256(self.relu(self.conv12(x)))
         x = self.bnm256(self.relu(self.conv13(x)))
 
+        x = self.bnm512(self.relu(self.conv14(x)))
+        x = self.relu(self.conv15(x))
+
         """Decoder"""
-        x = torch.unsqueeze(x.sum(axis=-1), axis=-1) * x
-        x = self.bnm256(self.lrelu(self.conv22(x + noise)))#+ layer5))
+        x = self.bnm512(self.lrelu(self.conv20(x + noise)))
+        x = self.bnm256(self.lrelu(self.conv21(x)))
+        x = self.ups1(x)
+
+        x = self.bnm256(self.lrelu(self.conv22(x)))
         x = self.bnm256(self.lrelu(self.conv23(x)))
         x = self.ups1(x)
 
-        x = self.bnm128(self.lrelu(self.conv24(x)))# + layer4))
+        x = self.bnm128(self.lrelu(self.conv24(x)))
         x = self.bnm128(self.lrelu(self.conv25(x)))
-        x = self.bnm128(self.lrelu(self.conv26(x)))  # + layer3))
+        x = self.bnm128(self.lrelu(self.conv26(x)))
         x = self.ups1(x)
 
         x = self.bnm64(self.lrelu(self.conv27(x)))
         x = self.bnm64(self.lrelu(self.conv28(x)))
-        x = self.bnm64(self.lrelu(self.conv29(x))) # + layer2))
+        x = self.bnm64(self.lrelu(self.conv29(x)))
         x = self.ups1(x)
 
         x = self.bnm32(self.lrelu(self.conv30(x)))
         x = self.bnm32(self.lrelu(self.conv31(x)))
-        x = self.bnm32(self.lrelu(self.conv32(x))) # + layer1))
+        x = self.bnm32(self.lrelu(self.conv32(x)))
         x = self.ups1(x)
 
         x = self.bnm16(self.lrelu(self.conv33(x)))
@@ -122,9 +126,11 @@ class VAE(nn.Module):
         x = torch.tanh(self.conv35(x))
         return x
 
-a = VAE()
-m = VAE().float()
-d = torch.rand(10,1,256,256).float()
-f = torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
-x = m(d, f)
-print(x.shape)
+
+if __name__ == '__main__':
+    a = VAE()
+    m = VAE().float()
+    d = torch.rand(10, 1, 256, 256).float()
+    f = torch.Tensor(torch.normal(mean=torch.zeros(10, 512, 4, 4)))
+    x = m(d, f)
+    print(x.shape)
