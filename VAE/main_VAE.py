@@ -11,7 +11,7 @@ import os.path
 def main():
     torch.cuda.empty_cache()
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/process_state_encoder_2.txt", "a")
-    device = torch.device('cuda:0')
+    device = torch.device('cuda:3')
     model = VAE()
 
     path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3.pt"
@@ -53,7 +53,7 @@ def main():
                 print("sum samples = {} ".format(batch_num * batch_size))
             spec = data[0].float()
             spec = spec.to(device)
-            noise = torch.normal(mean=torch.zeros(spec.shape[0], 256, 4, 4)).to(device).requires_grad_(True)
+            noise = torch.normal(mean=torch.zeros(spec.shape[0], 512, 4, 4)).to(device).requires_grad_(True)/4
             model_optimizer.zero_grad()
             specc_reconstructed = model(spec, noise)
 
