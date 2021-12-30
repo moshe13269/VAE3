@@ -38,7 +38,15 @@ class VAE(nn.Module):
         self.conv13 = nn.Conv2d(256, 256, 3, padding=1, stride=2)
         self.bnm256 = nn.BatchNorm2d(num_features=256, momentum=0.1)
 
+        self.conv14 = nn.Conv2d(256, 512, 3, padding=1)
+        self.conv15 = nn.Conv2d(512, 512, 3, padding=1, stride=2)
+        self.bnm512 = nn.BatchNorm2d(num_features=512, momentum=0.1)
+
+
         # decoder
+        self.conv20 = nn.Conv2d(256, 512, 3, padding=1)
+        self.conv21 = nn.Conv2d(512, 512, 3, padding=1)
+
         self.conv22 = nn.ConvTranspose2d(256, 256, 3, padding=1)
         self.conv23 = nn.ConvTranspose2d(256, 256, 3, padding=1)
 
@@ -114,9 +122,9 @@ class VAE(nn.Module):
         x = torch.tanh(self.conv35(x))
         return x
 
-# a = VAE()
-# m = VAE().float()
-# d = torch.rand(10,1,256,256).float()
-# f = torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
-# x = m(d, f)
-# print(x.shape)
+a = VAE()
+m = VAE().float()
+d = torch.rand(10,1,256,256).float()
+f = torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
+x = m(d, f)
+print(x.shape)
