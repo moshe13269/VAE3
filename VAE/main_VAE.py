@@ -82,21 +82,25 @@ def main():
         print('\n')
         print("Loss train = {}, epoch = {}, batch_size = {} wl".format(loss_tot, epoch, batch_size))
 
-        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/loss_arr_encoder3_2.npy"
+        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/loss_arr_encoder3_22.npy"
         np.save(outfile_epoch, np.asarray(loss_tot))
 
 
         # need to edit
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
+
+        if loss_tot <= 0.007:
+            break;
+
 
     print("Training is over")
     file.write("Training is over\n")
