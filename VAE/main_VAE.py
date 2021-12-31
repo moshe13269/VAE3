@@ -98,7 +98,7 @@ def main():
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
 
-        if loss_tot <= 0.007:
+        if loss_tot <= 0.005:
             break;
 
 
