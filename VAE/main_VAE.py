@@ -14,7 +14,7 @@ def main():
     device = torch.device('cuda:3')
     model = VAE()
 
-    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3.pt"
+    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"\
 
     if os.path.isfile(path2model):
         checkpoint = torch.load(path2model)

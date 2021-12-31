@@ -187,13 +187,6 @@
       <option name="presentableId" value="Default" />
       <updated>1631470150565</updated>
     </task>
-    <task id="LOCAL-00024" summary="ver0">
-      <created>1633210347330</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1633210347330</updated>
-    </task>
     <task id="LOCAL-00025" summary="ver0">
       <created>1633293030150</created>
       <option name="number" value="00025" />
@@ -530,7 +523,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640893527127</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="VAE (based on latent+normal noise)">
+      <created>1640931687107</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1640931687107</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -656,6 +656,11 @@
           <url>file://$PROJECT_DIR$/VAE/VAE_model.py</url>
           <line>100</line>
           <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/VAE/main_VAE.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="92" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
