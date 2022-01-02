@@ -3,7 +3,7 @@ import torch
 
 
 def normal_init(m):
-    if isinstance(m, nn.ConvTranspose2d) or isinstance(m, nn.Conv2d):
+    if isinstance(m, nn.ConvTranspose2d) or isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
         m.weight.data.normal_(0.0, 0.01)
         m.bias.data.fill_(0)
 

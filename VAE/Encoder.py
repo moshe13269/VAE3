@@ -41,6 +41,8 @@ class Encoder(nn.Module):
         self.conv15 = nn.Conv2d(512, 512, 3, padding=1, stride=2)
         self.bnm512 = nn.BatchNorm2d(num_features=512, momentum=0.1)
 
+        self.fc = nn.Linear(512 * 16, 13)
+
     def weight_init(self):
         for m in self._modules:
             normal_init(self._modules[m])
@@ -66,7 +68,7 @@ class Encoder(nn.Module):
 
         x = self.relu(self.bnm512(self.conv14(x)))
         x = self.relu(self.conv15(x))
-        return x
+        return self.fc(x.view(x.shape[0], 512*16))
 
 
 if __name__ == '__main__':

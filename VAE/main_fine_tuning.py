@@ -2,36 +2,30 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from VAE.VAE_model import VAE as VAE
+# from VAE.fine_tuning_model import FineTuning as FineTuning
 from utils.dataloader import Dataset
 import time
-import os.path
 from torch.nn import functional as F
+from VAE.craete_encoder import load_models
 
 
 def main():
     torch.cuda.empty_cache()
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/process_state_encoder_2.txt", "a")
     device = torch.device('cuda:3')
-    model = VAE()
 
-    path2model = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
+    path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
+    encoder = load_models(path2vae)
+    encoder.to(device)
 
-    if os.path.isfile(path2model):
-        checkpoint = torch.load(path2model)
-        model.load_state_dict(checkpoint['model_state_dict'])
-    else:
-        model.weight_init()
-    model.to(device)
+    model_optimizer = optim.Adam(encoder.parameters(), lr=0.0001, weight_decay=1e-5)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(model_optimizer, 'min', verbose=True, min_lr=0.00001)
+    encoder.train()
 
-    model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
-    model.train()
-
-    mse_criterion = nn.MSELoss().to(device)
     mse_criterion = nn.MSELoss().to(device)
     ce_criterion = nn.CrossEntropyLoss().to(device)
 
-    n_epochs = 100
+    n_epochs = 10
     loss_list = []
 
     print('start epoch')
@@ -59,7 +53,7 @@ def main():
             label = data[1].to(device)
             spec = spec.to(device)
             model_optimizer.zero_grad()
-            latent_vector = model(spec)
+            latent_vector = encoder(spec)
 
             loss = ce_criterion(latent_vector[:, :4], label[:, :1].squeeze().long()) + \
                    ce_criterion(latent_vector[:, 4:8], label[:, 1:2].squeeze().long()) + \
@@ -78,6 +72,7 @@ def main():
                 )
 
         loss_tot = loss_tot / counter
+        scheduler.step(loss_tot)
         loss_list.append(loss_tot)
 
         file.write("--- %s seconds ---" % (time.time() - start_time))
@@ -95,12 +90,12 @@ def main():
         # need to edit
         if epoch <= 2:
             path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/model_fine_tune.pt"
-            torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
+            torch.save({'epoch': epoch, 'model_state_dict': encoder.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
             path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/model_fine_tune.pt"
-            torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
+            torch.save({'epoch': epoch, 'model_state_dict': encoder.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
 
