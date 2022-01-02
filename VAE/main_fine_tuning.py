@@ -6,11 +6,12 @@ from VAE.VAE_model import VAE as VAE
 from utils.dataloader import Dataset
 import time
 import os.path
+from torch.nn import functional as F
 
 
 def main():
     torch.cuda.empty_cache()
-    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/process_state_encoder_2.txt", "a")
+    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/process_state_encoder_2.txt", "a")
     device = torch.device('cuda:3')
     model = VAE()
 
@@ -23,11 +24,13 @@ def main():
         model.weight_init()
     model.to(device)
 
-    model_optimizer = optim.Adam(model.parameters(), lr=0.01, weight_decay=1e-5)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(model_optimizer, 'min', verbose =True, min_lr=0.00001)
+    model_optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5)
     model.train()
 
     mse_criterion = nn.MSELoss().to(device)
+    mse_criterion = nn.MSELoss().to(device)
+    ce_criterion = nn.CrossEntropyLoss().to(device)
+
     n_epochs = 100
     loss_list = []
 
@@ -39,7 +42,7 @@ def main():
         dataset = Dataset(
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv",
-            model_type='vae')
+            model_type='vae_fine_tuning')
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
                                                   pin_memory=True, drop_last=True)
         print(len(data_loader.dataset))
@@ -53,12 +56,15 @@ def main():
             if batch_num % 200 == 0:
                 print("sum samples = {} ".format(batch_num * batch_size))
             spec = data[0].float()
+            label = data[1].to(device)
             spec = spec.to(device)
-            noise = torch.normal(mean=torch.zeros(spec.shape[0], 512, 4, 4)).to(device).requires_grad_(True)/4
             model_optimizer.zero_grad()
-            specc_reconstructed = model(spec, noise)
+            latent_vector = model(spec)
 
-            loss = mse_criterion(specc_reconstructed, spec)
+            loss = ce_criterion(latent_vector[:, :4], label[:, :1].squeeze().long()) + \
+                   ce_criterion(latent_vector[:, 4:8], label[:, 1:2].squeeze().long()) + \
+                   ce_criterion(latent_vector[:, 8:10], label[:, 2:3].squeeze().long()) + \
+                   mse_criterion(F.relu(latent_vector[:, 10:], label[:, 3:]))
 
             counter += 1
             loss.backward()
@@ -67,12 +73,11 @@ def main():
 
             if batch_num % 100 == 0 and batch_num > 0:
                 print(
-                    "[Epoch %d/%d] [Batch %d/%d] [Loss %f]VAE"
-                    % (epoch, n_epochs, batch_num, num_batch, loss_tot/counter)
+                    "[Epoch %d/%d] [Batch %d/%d] [Loss %f] fine_tune"
+                    % (epoch, n_epochs, batch_num, num_batch, loss_tot / counter)
                 )
 
         loss_tot = loss_tot / counter
-        scheduler.step(loss_tot)
         loss_list.append(loss_tot)
 
         file.write("--- %s seconds ---" % (time.time() - start_time))
@@ -84,25 +89,20 @@ def main():
         print('\n')
         print("Loss train = {}, epoch = {}, batch_size = {} wl".format(loss_tot, epoch, batch_size))
 
-        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/loss_arr_encoder3_22.npy"
+        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/loss_arr_fine_tune.npy"
         np.save(outfile_epoch, np.asarray(loss_tot))
-
 
         # need to edit
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/model_fine_tune.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/model_fine_tune.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
-
-        if loss_tot <= 0.006:
-            break;
-
 
     print("Training is over")
     file.write("Training is over\n")

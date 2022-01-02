@@ -1,18 +1,13 @@
 from torch.utils.data import Dataset
 import torch
-from os import listdir
 import os
-from os.path import isfile, join
+from os.path import join
 import numpy as np
 from scipy import signal
 from scipy.io import wavfile
 import pickle
 import pandas as pd
 from utils.util import convert_label4input, convert_label4gan
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import normalize
-import numpy
-import librosa
 
 
 def load_obj(name):
@@ -25,12 +20,16 @@ class Dataset(Dataset):
         self.model_type = model_type
         self.train = train
         self.path2data = path2data
-        self.path2csv = path2csv  # pd.read_csv(path2csv, skipinitialspace=True)
+        self.path2csv = path2csv
         self.csv = self.open_csv()
         list_files = next(os.walk(path2data))[2]
         if self.train:
             self.path_list = [join(path2data, file) for file in list_files \
                               if int(file.replace('.wav', '')) % 7 != 0]
+        elif self.model_type == 'vae_fine_tuning':
+            import random
+            random.shuffle(self.path_list)
+            self.path_list = self.path_list[:10000]
         else:
             self.path_list = [join(path2data, file) for file in list_files
                               if int(file.replace('.wav', '')) % 7 == 0]
@@ -46,7 +45,6 @@ class Dataset(Dataset):
 
     def __getitem__(self, index):
         try:
-            # print(join(self.path2data, str(index) + '.wav'))
             fs, x = wavfile.read(join(self.path2data, str(index) + '.wav'))  # self.path_list[index])
         except UnboundLocalError:
             print(self.path_list[index])
@@ -62,17 +60,14 @@ class Dataset(Dataset):
         # Zxx = ((Zxx - Zxx.mean()) / Zxx.std())
         label = self.csv[index:index+1, 1:]  # list(self.csv_df.loc[index])[1:]
         label = label.squeeze()
-        # print(label)
         if self.model_type == 'vae':
             return Zxx, torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
-
-        # need to edit
-        if self.gan and self.train:
-            label = convert_label4gan(label)
-
-        elif self.train:
+        if self.train:
             label = convert_label4input(label)
-        return Zxx, label
+            return Zxx, label
+
+        label = convert_label4gan(label)
+        return label
 
 
 # if __name__ == '__main__':
