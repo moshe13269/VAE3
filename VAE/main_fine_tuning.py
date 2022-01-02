@@ -12,7 +12,7 @@ from VAE.craete_encoder import load_models
 def main():
     torch.cuda.empty_cache()
     file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/fine_tuning/process_state_encoder_2.txt", "a")
-    device = torch.device('cuda:3')
+    device = torch.device('cuda:2')
 
     path2vae = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
     encoder = load_models(path2vae)
@@ -36,7 +36,7 @@ def main():
         dataset = Dataset(
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0/",
             "/home/moshelaufer/Documents/TalNoise/TAL31.07.2021/20210727_data_150k_constADSR_CATonly_res0.csv",
-            model_type='vae_fine_tuning')
+            model_type='vae_fine_tuning', train=0)
         data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1,
                                                   pin_memory=True, drop_last=True)
         print(len(data_loader.dataset))
@@ -58,7 +58,7 @@ def main():
             loss = ce_criterion(latent_vector[:, :4], label[:, :1].squeeze().long()) + \
                    ce_criterion(latent_vector[:, 4:8], label[:, 1:2].squeeze().long()) + \
                    ce_criterion(latent_vector[:, 8:10], label[:, 2:3].squeeze().long()) + \
-                   mse_criterion(F.relu(latent_vector[:, 10:], label[:, 3:]))
+                   mse_criterion(F.relu(latent_vector[:, 10:]), label[:, 3:])
 
             counter += 1
             loss.backward()

@@ -28,8 +28,8 @@ class Dataset(Dataset):
                               if int(file.replace('.wav', '')) % 7 != 0]
         elif self.model_type == 'vae_fine_tuning':
             import random
-            random.shuffle(self.path_list)
-            self.path_list = self.path_list[:10000]
+            random.shuffle(list_files)
+            self.path_list = list_files[:10000]
         else:
             self.path_list = [join(path2data, file) for file in list_files
                               if int(file.replace('.wav', '')) % 7 == 0]
@@ -62,7 +62,7 @@ class Dataset(Dataset):
         label = label.squeeze()
         if self.model_type == 'vae':
             return Zxx, torch.Tensor(torch.normal(mean=torch.zeros(10, 256, 8, 8)))
-        if self.train:
+        if self.train or self.model_type == 'vae_fine_tuning':
             label = convert_label4input(label)
             return Zxx, label
 

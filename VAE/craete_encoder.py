@@ -5,26 +5,26 @@ import os.path
 
 
 def initialize_encoder(Encoder, VAE):
-    Encoder.conv1.weights = VAE.conv1.weights
-    Encoder.conv2.weights = VAE.conv2.weights
-    Encoder.conv3.weights = VAE.conv3.weights
+    Encoder.conv1.weight.data = VAE.conv1.weight.data
+    Encoder.conv2.weight.data = VAE.conv2.weight.data
+    Encoder.conv3.weight.data = VAE.conv3.weight.data
 
-    Encoder.conv4.weights = VAE.conv4.weights
-    Encoder.conv5.weights = VAE.conv5.weights
-    Encoder.conv6.weights = VAE.conv6.weights
+    Encoder.conv4.weight.data = VAE.conv4.weight.data
+    Encoder.conv5.weight.data = VAE.conv5.weight.data
+    Encoder.conv6.weight.data = VAE.conv6.weight.data
 
-    Encoder.conv7.weights = VAE.conv7.weights
-    Encoder.conv8.weights = VAE.conv8.weights
-    Encoder.conv9.weights = VAE.conv9.weights
+    Encoder.conv7.weight.data = VAE.conv7.weight.data
+    Encoder.conv8.weight.data = VAE.conv8.weight.data
+    Encoder.conv9.weight.data = VAE.conv9.weight.data
 
-    Encoder.conv10.weights = VAE.conv10.weights
-    Encoder.conv11.weights = VAE.conv11.weights
+    Encoder.conv10.weight.data = VAE.conv10.weight.data
+    Encoder.conv11.weight.data = VAE.conv11.weight.data
 
-    Encoder.conv12.weights = VAE.conv12.weights
-    Encoder.conv13.weights = VAE.conv13.weights
+    Encoder.conv12.weight.data = VAE.conv12.weight.data
+    Encoder.conv13.weight.data = VAE.conv13.weight.data
 
-    Encoder.conv14.weights = VAE.conv14.weights
-    Encoder.conv15.weights = VAE.conv15.weights
+    Encoder.conv14.weight.data = VAE.conv14.weight.data
+    Encoder.conv15.weight.data = VAE.conv15.weight.data
 
     return Encoder
 
