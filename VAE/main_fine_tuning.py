@@ -70,7 +70,8 @@ def main():
                     "[Epoch %d/%d] [Batch %d/%d] [Loss %f] fine_tune"
                     % (epoch, n_epochs, batch_num, num_batch, loss_tot / counter)
                 )
-
+            if epoch == 9:
+                a = 0
         loss_tot = loss_tot / counter
         scheduler.step(loss_tot)
         loss_list.append(loss_tot)

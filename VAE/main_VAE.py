@@ -10,7 +10,7 @@ import os.path
 
 def main():
     torch.cuda.empty_cache()
-    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/process_state_encoder_2.txt", "a")
+    file = open("/home/moshelaufer/PycharmProjects/VAE2/data/VAE/cos_sim/process_state_encoder_2.txt", "a")
     device = torch.device('cuda:3')
     model = VAE()
 
@@ -24,10 +24,12 @@ def main():
     model.to(device)
 
     model_optimizer = optim.Adam(model.parameters(), lr=0.01, weight_decay=1e-5)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(model_optimizer, 'min', verbose =True, min_lr=0.00001)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(model_optimizer, 'min', verbose=True, min_lr=0.00001)
     model.train()
 
     mse_criterion = nn.MSELoss().to(device)
+    cos_time = nn.CosineSimilarity(dim=2)
+    cos_freq = nn.CosineSimilarity(dim=3)
     n_epochs = 100
     loss_list = []
 
@@ -54,7 +56,7 @@ def main():
                 print("sum samples = {} ".format(batch_num * batch_size))
             spec = data[0].float()
             spec = spec.to(device)
-            noise = torch.normal(mean=torch.zeros(spec.shape[0], 512, 4, 4)).to(device).requires_grad_(True)/4
+            noise = torch.normal(mean=torch.zeros(spec.shape[0], 512, 4, 4)).to(device).requires_grad_(True) / 4
             model_optimizer.zero_grad()
             specc_reconstructed = model(spec, noise)
 
@@ -68,7 +70,7 @@ def main():
             if batch_num % 100 == 0 and batch_num > 0:
                 print(
                     "[Epoch %d/%d] [Batch %d/%d] [Loss %f]VAE"
-                    % (epoch, n_epochs, batch_num, num_batch, loss_tot/counter)
+                    % (epoch, n_epochs, batch_num, num_batch, loss_tot / counter)
                 )
 
         loss_tot = loss_tot / counter
@@ -84,25 +86,23 @@ def main():
         print('\n')
         print("Loss train = {}, epoch = {}, batch_size = {} wl".format(loss_tot, epoch, batch_size))
 
-        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/loss_arr_encoder3_22.npy"
+        outfile_epoch = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
         np.save(outfile_epoch, np.asarray(loss_tot))
-
 
         # need to edit
         if epoch <= 2:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
         elif min(loss_list[:len(loss_list) - 2]) >= loss_list[len(loss_list) - 1]:
-            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_22.pt"
+            path = "/home/moshelaufer/PycharmProjects/VAE2/data/VAE/2_44/model_encoder3_2.pt"
             torch.save({'epoch': epoch, 'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': model_optimizer.state_dict()}, path)
             print("Model had been saved")
 
         if loss_tot <= 0.006:
             break;
-
 
     print("Training is over")
     file.write("Training is over\n")
