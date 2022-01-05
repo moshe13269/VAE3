@@ -1,7 +1,5 @@
-import numpy as np
 import torch
 import torch.nn as nn
-import torch.optim as optim
 from VAE.Encoder import Encoder as Encoder
 from utils.dataloader import Dataset
 import time
@@ -21,7 +19,7 @@ if os.path.isfile(path2encoder):
     encoder.load_state_dict(checkpoint['model_state_dict'])
 
 encoder.to(device)
-# encoder.eval()
+encoder.eval()
 
 mse_criterion = nn.MSELoss().to(device)
 ce_criterion = nn.CrossEntropyLoss().to(device)
@@ -43,16 +41,16 @@ a2_counter = 0
 a3_counter = 0.0
 counter = 0
 for batch_num, data in enumerate(data_loader):
-    if batch_num % 200 == 0:
-        print("sum samples = {} ".format(batch_num))
-    spec = data[0].float()
+    # if batch_num % 200 == 0:
+    #     print("sum samples = {} ".format(batch_num))
+    spec = data[0]
     label = data[1]
     spec = spec.to(device)
     label_pred = encoder(spec)
 
-    if batch_num == 5000:
+    if batch_num == 10:
         break;
-
+    print(label_pred[:, :4].squeeze().detach().cpu().numpy(), label[:, :1].squeeze())
     if label_pred[:, :4].squeeze().detach().cpu().numpy().argmax()/4. == label[:, :1].squeeze():
         a0_counter += 1
     if label_pred[:, 4:8].squeeze().detach().cpu().numpy().argmax()/4. == label[:, 1:2].squeeze():

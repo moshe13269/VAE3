@@ -25,7 +25,7 @@ def main():
     mse_criterion = nn.MSELoss().to(device)
     ce_criterion = nn.CrossEntropyLoss().to(device)
 
-    n_epochs = 10
+    n_epochs = 50
     loss_list = []
 
     print('start epoch')
