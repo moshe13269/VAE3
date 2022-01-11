@@ -48,22 +48,20 @@ for batch_num, data in enumerate(data_loader):
     spec = spec.to(device)
     label_pred = encoder(spec)
 
-    if batch_num == 10:
+    if batch_num == 10000:
         break;
-    print(label_pred[:, :4].squeeze().detach().cpu().numpy(), label[:, :1].squeeze())
-    if label_pred[:, :4].squeeze().detach().cpu().numpy().argmax()/4. == label[:, :1].squeeze():
+    if label_pred[:, :4].squeeze().detach().cpu().numpy().argmax()/4. == label[:, :1].squeeze()/4:
         a0_counter += 1
-    if label_pred[:, 4:8].squeeze().detach().cpu().numpy().argmax()/4. == label[:, 1:2].squeeze():
+    if label_pred[:, 4:8].squeeze().detach().cpu().numpy().argmax()/4. == label[:, 1:2].squeeze()/4:
         a1_counter += 1
-    if label_pred[:, 8:10].squeeze().detach().cpu().numpy().argmax() == 0:
-        a2 = 0
+    if label_pred[:, 8:10].squeeze().detach().cpu().numpy().argmax()/1 == 0:
+        a2 = 0.
     else:
-        a2 = 0.43
+        a2 = 1.
     if a2 == label[:, 2:3].squeeze().detach().cpu().numpy():
         a2_counter += 1
-
-    a3_counter += mse_criterion(F.relu(label_pred[:, 10:].detach().cpu()), label[:, 3:])
-
+    # print(label_pred[:, 8:10].squeeze().detach().cpu().numpy().argmax()/1, label[:, 2:3].squeeze().detach().cpu().numpy())
+    a3_counter += mse_criterion(F.relu(label_pred[:, 10:].squeeze().detach().cpu()), label[:, 3:].squeeze())
     counter += 1
 
 print("[osc2waveform accuracy %f] [lfo1waveform accuracy %f] [lfo1destination accuracy %f] [vector L2 Error %f] "
